@@ -51,15 +51,15 @@ export default function Hero() {
   return (
     <BackgroundLines className="absolute inset-0 z-0">
       <GridBackground className="min-h-screen w-full">
-        <section className="relative flex flex-col items-center justify-center min-h-screen w-full px-4 pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden">
+        <section className="relative flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 pt-12 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16 overflow-hidden">
           {/* Centered hero content */}
-          <div className="relative z-10 flex flex-col items-center gap-6 text-center w-full max-w-5xl mx-auto">
+          <div className="relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center w-full max-w-5xl mx-auto">
             {/* Main heading */}
             <motion.h1 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 drop-shadow-2xl tracking-tight"
+              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 drop-shadow-2xl tracking-tight leading-tight"
             >
               Kashif Deshmukh
             </motion.h1>
@@ -69,9 +69,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="min-h-[2.5rem] flex items-center justify-center"
+              className="min-h-[2rem] sm:min-h-[2.5rem] flex items-center justify-center px-2"
             >
-              <span className={`text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold ${currentWord.className}`}>
+              <span className={`text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold ${currentWord.className} leading-tight`}>
                 {displayedText}
                 <span className="animate-pulse">|</span>
               </span>
@@ -82,10 +82,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className="relative w-full max-w-4xl mx-auto"
+              className="relative w-full max-w-4xl mx-auto px-2 sm:px-4"
             >
               <div className="relative group">
-                <p className="max-w-4xl text-base xs:text-lg md:text-xl lg:text-2xl text-black/90 dark:text-white/90 leading-relaxed font-medium transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600">
+                <p className="max-w-4xl text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-black/90 dark:text-white/90 leading-relaxed font-medium transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600">
                   I build modern, scalable web and mobile applications that solve real-world problems.
                   Specializing in React, Next.js, React Native, and Node.js, I create seamless user experiences
                   with clean, maintainable code. Let&apos;s turn your ideas into reality.
@@ -99,7 +99,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="flex flex-row gap-6 mt-6 w-full justify-center items-center"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-4 sm:mt-6 w-full justify-center items-center px-2"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -5 }}
@@ -110,9 +110,9 @@ export default function Hero() {
                   variant="outline"
                   size="lg"
                   onClick={() => window.open('/resume.pdf', '_blank')}
-                  className="inline-flex items-center gap-3 px-10 py-4 min-w-[180px] text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-3 sm:py-4 w-full sm:w-auto min-w-[160px] sm:min-w-[180px] text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Download className="w-6 h-6 flex-shrink-0" />
+                  <Download className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                   <span>View Resume</span>
                 </Button>
               </motion.div>
@@ -124,10 +124,10 @@ export default function Hero() {
                 <Button
                   size="lg"
                   onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-3 px-10 py-4 min-w-[180px] text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-3 sm:py-4 w-full sm:w-auto min-w-[160px] sm:min-w-[180px] text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <span>Explore Projects</span>
-                  <ArrowRight className="w-6 h-6 flex-shrink-0" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                 </Button>
               </motion.div>
             </motion.div>
@@ -137,7 +137,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-              className="flex gap-6 mt-8"
+              className="flex gap-4 sm:gap-6 mt-6 sm:mt-8"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -148,9 +148,9 @@ export default function Hero() {
                   variant="outline"
                   size="icon"
                   onClick={() => window.open('https://github.com/Kashifkkd', '_blank')}
-                  className="w-14 h-14 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-12 h-12 sm:w-14 sm:h-14 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Github className="w-6 h-6" />
+                  <Github className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Button>
               </motion.div>
               <motion.div
@@ -162,9 +162,9 @@ export default function Hero() {
                   variant="outline"
                   size="icon"
                   onClick={() => window.open('https://www.linkedin.com/in/kashif-deshmukh-23797a173/', '_blank')}
-                  className="w-14 h-14 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-12 h-12 sm:w-14 sm:h-14 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Linkedin className="w-6 h-6" />
+                  <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Button>
               </motion.div>
             </motion.div>
