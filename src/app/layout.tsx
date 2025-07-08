@@ -16,11 +16,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`min-h-screen bg-background text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
-        <main className="pt-20 px-2">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

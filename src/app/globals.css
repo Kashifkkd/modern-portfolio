@@ -62,6 +62,35 @@
   }
 }
 
+@keyframes glitch1 {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(-2px,2px); }
+  40% { transform: translate(-2px,-2px); }
+  60% { transform: translate(2px,2px); }
+  80% { transform: translate(2px,-2px); }
+  100% { transform: translate(0,0); }
+}
+@keyframes glitch2 {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(2px,-2px); }
+  40% { transform: translate(2px,2px); }
+  60% { transform: translate(-2px,-2px); }
+  80% { transform: translate(-2px,2px); }
+  100% { transform: translate(0,0); }
+}
+@keyframes glitch3 {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(-1px,1px); }
+  40% { transform: translate(1px,-1px); }
+  60% { transform: translate(1px,1px); }
+  80% { transform: translate(-1px,-1px); }
+  100% { transform: translate(0,0); }
+}
+
+.animate-glitch1 { animation: glitch1 0.7s infinite linear alternate-reverse; }
+.animate-glitch2 { animation: glitch2 0.7s infinite linear alternate-reverse; }
+.animate-glitch3 { animation: glitch3 0.7s infinite linear alternate-reverse; }
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);
@@ -129,6 +158,49 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+}
+
+/* Prevent scroll when entry animation is active */
+.no-scroll html, .no-scroll body {
+  overflow: hidden !important;
+}
+
+/* Custom scroll snap for main page */
+.snap-y {
+  scroll-snap-type: y mandatory;
+}
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* Modern themed scrollbar for main only */
+main::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+}
+main:hover::-webkit-scrollbar {
+  background: rgba(0,0,0,0.08);
+}
+main::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00C6FB 0%, #8F00FF 60%, #FF61A6 100%);
+  border-radius: 12px;
+  box-shadow: 0 0 8px 2px #8F00FF44;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+main:hover::-webkit-scrollbar-thumb {
+  box-shadow: 0 0 16px 4px #00C6FB88, 0 0 24px 8px #FF61A688;
+}
+main {
+  scrollbar-width: thin;
+  scrollbar-color: #8F00FF #f3f3f3;
+}
+@media (prefers-color-scheme: dark) {
+  main {
+    scrollbar-color: #8F00FF #18181b;
+  }
+  main::-webkit-scrollbar-thumb {
+    border: 2px solid rgba(24,24,27,0.25);
+  }
 }
 
 @layer base {

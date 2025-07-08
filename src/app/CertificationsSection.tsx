@@ -25,7 +25,7 @@ const certifications = [
 
 export default function CertificationsSection() {
   return (
-    <section id="certifications" className="max-w-5xl mx-auto mt-20 md:mt-32 px-4 md:px-8 lg:px-10">
+    <section id="certifications" className="scroll-mt-[96px] max-w-5xl mx-auto mt-20 md:mt-32 px-4 md:px-8 lg:px-10">
       <h2 className="text-2xl md:text-4xl font-bold text-center mb-10 text-blue-600 dark:text-blue-400">Certifications</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {certifications.map((c, i) => (

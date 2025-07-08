@@ -4,7 +4,7 @@ import { GridBackground } from "@/components/ui/grid-background";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useViewportScroll, useTransform } from "framer-motion";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
 const typewriterWords = [
@@ -20,6 +20,11 @@ export default function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Parallax effect
+  const { scrollY } = useViewportScroll();
+  const yBg = useTransform(scrollY, [0, 400], [0, 80]);
+  const yGrid = useTransform(scrollY, [0, 400], [0, 40]);
 
   useEffect(() => {
     const currentWord = typewriterWords[currentWordIndex];
@@ -46,12 +51,14 @@ export default function Hero() {
   const currentWord = typewriterWords[currentWordIndex];
 
   return (
-    <section id="hero" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Backgrounds */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+    <section id="hero" className="scroll-mt-[96px] relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+      {/* Parallax Backgrounds */}
+      <motion.div style={{ y: yBg }} className="absolute inset-0 z-0 pointer-events-none">
         <BackgroundLines className="absolute inset-0 z-0" />
+      </motion.div>
+      <motion.div style={{ y: yGrid }} className="absolute inset-0 z-0 pointer-events-none">
         <GridBackground className="absolute inset-0 z-0" />
-      </div>
+      </motion.div>
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center w-full max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16">
         {/* Main heading */}

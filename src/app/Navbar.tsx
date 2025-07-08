@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 import { ImageModal } from "@/components/ui/image-modal";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 
 // Add shimmer animation styles
 const shimmerStyle =
@@ -13,7 +14,7 @@ const shimmerStyle =
 
 const navLinks = [
   { href: "#hero", label: "Home" },
-  { href: "#about", label: "About" },
+  // { href: "#about", label: "About" },
   { href: "#journey", label: "Journey" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
@@ -25,17 +26,15 @@ const navLinks = [
 // Helper to scroll with offset for sticky navbar
 function scrollWithOffset(id: string) {
   const el = document.getElementById(id);
-  const navbar = document.getElementById('main-navbar');
   if (el) {
-    const yOffset = navbar ? navbar.offsetHeight + 24 : 80; // 24px for top margin
-    const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
   const [imageModalOpen, setImageModalOpen] = useState(false);
+  const scrollTargetRef = useRef<string | null>(null);
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
@@ -46,17 +45,20 @@ export default function Navbar() {
         }
       >
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-3 select-none">
+        <a
+          href="#hero"
+          className="flex items-center gap-3 select-none cursor-pointer"
+          onClick={e => {
+            e.preventDefault();
+            scrollWithOffset('hero');
+          }}
+        >
           <Image
             src="/kashif_profile_img.jpeg"
             alt="Kashif Deshmukh"
             width={40}
             height={40}
-            className="rounded-full border-2 border-white/30 dark:border-white/20 shadow-md cursor-pointer hover:scale-105 transition-transform duration-200"
-            onClick={(e) => {
-              e.preventDefault();
-              setImageModalOpen(true);
-            }}
+            className="rounded-full border-2 border-white/30 dark:border-white/20 shadow-md hover:scale-105 transition-transform duration-200"
           />
           <span className="font-extrabold text-lg tracking-tight text-black dark:text-white">Kashif</span>
         </a>
@@ -82,49 +84,56 @@ export default function Navbar() {
         <div className="ml-2" style={{ zIndex: 2 }}>
           <ThemeToggle />
         </div>
-        {/* Hamburger for mobile */}
-        <motion.button
-          className="md:hidden p-2 rounded-full bg-white/40 dark:bg-black/40 shadow border border-white/30 dark:border-white/10 ml-2 backdrop-blur"
-          onClick={() => setNavOpen((v) => !v)}
-          aria-label="Open navigation menu"
-          whileTap={{ scale: 0.85, rotate: 10 }}
-          style={{ zIndex: 2 }}
-        >
-          {navOpen ? (
-            <XMarkIcon className="w-6 h-6 text-black dark:text-white" />
-          ) : (
-            <Bars3Icon className="w-6 h-6 text-black dark:text-white" />
-          )}
-        </motion.button>
-        {/* Mobile nav menu */}
-        <AnimatePresence>
-          {navOpen && (
-            <motion.nav
-              initial={{ y: -30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -30, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-[110%] left-0 w-full bg-white/80 dark:bg-black/90 rounded-2xl shadow-xl border border-white/30 dark:border-white/10 flex flex-col gap-2 px-4 py-4 md:hidden backdrop-blur-xl"
-              style={{ zIndex: 10 }}
-            >
-              {navLinks.map((link) => (
-                <motion.button
-                  key={link.href}
-                  onClick={() => {
-                    setNavOpen(false);
-                    const id = link.href.replace('#', '');
-                    scrollWithOffset(id);
-                  }}
-                  whileHover={{ scale: 1.05, x: 4 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-3 py-2 rounded-lg text-base font-medium text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10 transition-colors bg-transparent border-none cursor-pointer"
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-            </motion.nav>
-          )}
-        </AnimatePresence>
+        {/* Hamburger for mobile with Drawer */}
+        <div className="md:hidden ml-2" style={{ zIndex: 2 }}>
+          <Drawer
+            open={navOpen}
+            onOpenChange={(open) => {
+              setNavOpen(open);
+              if (!open && scrollTargetRef.current) {
+                // Wait a tick for Drawer to finish closing
+                setTimeout(() => {
+                  scrollWithOffset(scrollTargetRef.current!);
+                  scrollTargetRef.current = null;
+                }, 10);
+              }
+            }}
+          >
+            <DrawerTrigger asChild>
+              <motion.button
+                className="p-2 rounded-full bg-white/40 dark:bg-black/40 shadow border border-white/30 dark:border-white/10 backdrop-blur"
+                aria-label="Open navigation menu"
+                whileTap={{ scale: 0.85, rotate: 10 }}
+              >
+                {navOpen ? (
+                  <XMarkIcon className="w-6 h-6 text-black dark:text-white" />
+                ) : (
+                  <Bars3Icon className="w-6 h-6 text-black dark:text-white" />
+                )}
+              </motion.button>
+            </DrawerTrigger>
+            <DrawerContent className="p-0 bg-white/90 dark:bg-black/90">
+              <nav className="flex flex-col gap-2 w-full px-4 py-8">
+                {navLinks.map((link) => (
+                  <DrawerClose asChild key={link.href}>
+                    <motion.button
+                      onClick={() => {
+                        const id = link.href.replace('#', '');
+                        scrollTargetRef.current = id;
+                        setNavOpen(false);
+                      }}
+                      whileHover={{ scale: 1.05, x: 4 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="px-3 py-3 rounded-lg text-lg font-semibold text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10 transition-colors bg-transparent border-none cursor-pointer text-left w-full max-w-xs"
+                    >
+                      {link.label}
+                    </motion.button>
+                  </DrawerClose>
+                ))}
+              </nav>
+            </DrawerContent>
+          </Drawer>
+        </div>
         {/* Image Preview Modal */}
         <ImageModal
           isOpen={imageModalOpen}

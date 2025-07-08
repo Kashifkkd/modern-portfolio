@@ -20,7 +20,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative max-w-2xl mx-auto mt-20 md:mt-32 px-4 md:px-8 lg:px-10 flex flex-col items-center">
+    <section id="contact" className="scroll-mt-[96px] relative max-w-2xl mx-auto mt-20 md:mt-32 px-4 md:px-8 lg:px-10 flex flex-col items-center">
       {/* Subtle animated background */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/40 via-purple-100/30 to-pink-100/30 dark:from-zinc-900/60 dark:via-zinc-800/40 dark:to-zinc-900/60 blur-2xl" />

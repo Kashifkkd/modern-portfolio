@@ -43,7 +43,7 @@ const TABS = ["Personal", "Client", "Open Source"];
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="mt-20 md:mt-32 px-4 max-w-6xl mx-auto">
+    <section id="projects" className="scroll-mt-[96px] mt-20 md:mt-32 px-4 max-w-6xl mx-auto">
       <h2 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-900 dark:text-white tracking-tight">Projects</h2>
       <p className="text-neutral-600 dark:text-neutral-300 text-center text-sm md:text-base mb-8 max-w-xl mx-auto">
         A selection of personal, client, and open source projects showcasing my work and expertise.

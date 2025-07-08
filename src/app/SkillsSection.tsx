@@ -119,7 +119,7 @@ const skillGroups = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="relative mt-20 md:mt-32 max-w-6xl mx-auto px-4 md:px-8 lg:px-10 z-10">
+    <section id="skills" className="scroll-mt-[96px] relative mt-20 md:mt-32 max-w-6xl mx-auto px-4 md:px-8 lg:px-10 z-10">
       {/* Animated background */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <BackgroundBeams />

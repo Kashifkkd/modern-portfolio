@@ -28,7 +28,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="w-full mt-20 md:mt-32 px-0">
+    <section id="testimonials" className="scroll-mt-[96px] w-full mt-20 md:mt-32 px-0">
       <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-10">
         <h2 className="text-2xl md:text-4xl font-bold text-center mb-10 text-blue-600 dark:text-blue-400">Testimonials</h2>
       </div>
