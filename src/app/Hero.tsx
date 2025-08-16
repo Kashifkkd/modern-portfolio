@@ -116,7 +116,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.open('/resume.pdf', '_blank')}
+              onClick={() => window.open('/Kashif-Resume.pdf', '_blank')}
               className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-3 sm:py-4 w-full sm:w-auto min-w-[160px] sm:min-w-[180px] text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Download className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
