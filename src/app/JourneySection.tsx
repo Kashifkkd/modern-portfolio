@@ -39,7 +39,7 @@ export default function JourneySection() {
               ),
             },
             {
-              title: "Internship - Web Developer",
+              title: "Internship - Software Developer",
               content: (
                 <div>
                   <div className="font-semibold text-base md:text-lg text-neutral-800 dark:text-neutral-200">

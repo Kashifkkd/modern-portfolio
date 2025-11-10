@@ -10,16 +10,39 @@ const projects = [
     description: "A modern, animated portfolio built with Next.js, Tailwind CSS, and Framer Motion.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
     tag: "Personal",
-    link: "#",
+    link: "https://kashif-portfolio.vercel.app/",
+    source: "https://github.com/Kashifkkd/my-mentor-gpt",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "E-commerce Dashboard",
-    description: "A client dashboard for managing products, orders, and analytics.",
-    tech: ["React", "Node.js", "MongoDB"],
+    title: "My Mentor GPT",
+    description:
+      "An AI mentor platform where users chat with tailored assistants (teacher, therapist, career coach) backed by MongoDB session storage and streaming responses.",
+    tech: ["Next.js", "React", "Tailwind CSS", "MongoDB"],
+    tag: "Personal",
+    link: "https://my-mentor-gpt.vercel.app/",
+    source: "https://github.com/Kashifkkd/my-mentor-gpt",
+    image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    title: "Global Tours & Travels",
+    description:
+      "Responsive travel services platform with live destination previews, booking workflows, and service catalog built on Next.js and Tailwind CSS.",
+    tech: ["Next.js", "Tailwind CSS", "TypeScript"],
     tag: "Client",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80",
+    link: "https://globaltoursandtravels.vercel.app/",
+    source: "https://github.com/Kashifkkd/tours-and-travels",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    title: "The Celiac Store",
+    description:
+      "Rebuilt the gluten-free marketplace on Next.js with a Node.js API layer, MongoDB product catalog, and polished shopping flows tuned for accessibility.",
+    tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
+    tag: "Client",
+    link: "https://theceliacstore-fe.vercel.app/",
+    source: "https://github.com/farish-jamal/theceliacstore-FE",
+    image: "https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=600&q=80",
   },
   {
     title: "Mobile App",
@@ -95,15 +118,29 @@ export default function ProjectsSection() {
                           </span>
                         ))}
                       </div>
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block mt-auto text-primary font-semibold hover:underline"
-                        >
-                          View Project
-                        </a>
+                      {(project.link || project.source) && (
+                        <div className="mt-auto flex flex-wrap gap-3">
+                          {project.link && (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary text-sm font-semibold underline underline-offset-4"
+                            >
+                              Live Preview
+                            </a>
+                          )}
+                          {project.source && (
+                            <a
+                              href={project.source}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary text-sm font-semibold underline underline-offset-4"
+                            >
+                              View Source
+                            </a>
+                          )}
+                        </div>
                       )}
                       <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold tracking-wide z-10 ${
                         project.tag === "Personal"
