@@ -7,7 +7,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 const projects = [
   {
     title: "Portfolio Website",
-    description: "A modern, animated portfolio website showcasing my work and expertise. Features include an interactive hero section with typewriter effects, animated journey timeline, skills showcase, live project previews with embedded iframes, testimonials, certifications, and contact section. Built with smooth animations, dark/light mode support, responsive design, and entry animations for an engaging user experience.",
+    description: "A modern, animated portfolio website showcasing my work with interactive hero section, live project previews, and smooth animations. Features dark/light mode support and responsive design.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
     tag: "Personal",
     link: "https://kashif-portfolio.vercel.app/",
@@ -25,11 +25,21 @@ const projects = [
     iframeUrl: "https://my-mentor-gpt.vercel.app/",
   },
   {
+    title: "TeamSync",
+    description:
+      "A modern project management application designed for multi-company environments with workspace isolation, Gantt charts, time tracking, real-time updates, and comprehensive analytics.",
+    tech: ["Next.js", "Express.js", "PostgreSQL", "Firebase"],
+    tag: "Personal",
+    link: "https://team-sync-lemon.vercel.app/",
+    source: "https://github.com/Kashifkkd/TeamSync",
+    iframeUrl: "https://team-sync-lemon.vercel.app/",
+  },
+  {
     title: "Global Tours & Travels",
     description:
       "Responsive travel services platform with live destination previews, booking workflows, and service catalog built on Next.js and Tailwind CSS.",
     tech: ["Next.js", "Tailwind CSS", "TypeScript"],
-    tag: "Client",
+    tag: "Freelance",
     link: "https://globaltoursandtravels.vercel.app/",
     source: "https://github.com/Kashifkkd/tours-and-travels",
     iframeUrl: "https://globaltoursandtravels.vercel.app/",
@@ -39,16 +49,26 @@ const projects = [
     description:
       "Rebuilt the gluten-free marketplace on Next.js with a Node.js API layer, MongoDB product catalog, and polished shopping flows tuned for accessibility.",
     tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
-    tag: "Client",
+    tag: "Freelance",
     link: "https://theceliacstore-fe.vercel.app/",
     source: "https://github.com/farish-jamal/theceliacstore-FE",
     iframeUrl: "https://theceliacstore-fe.vercel.app/",
   },
   {
+    title: "AKG Construction Website",
+    description:
+      "A modern, high-performance website for AKG Sons Infra, a leading civil construction and infrastructure company. Features beautiful responsive UI with premium typography, high-resolution visuals, and smooth animations powered by Framer Motion.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN UI", "Framer Motion"],
+    tag: "Freelance",
+    link: "https://akg-construction-website.vercel.app/",
+    source: "https://github.com/Kashifkkd/akg-construction-website",
+    iframeUrl: "https://akg-construction-website.vercel.app/",
+  },
+  {
     title: "Cove Social App",
     description: "A modern chat application built with React Native, featuring real-time messaging, media sharing, friend requests, and WhatsApp-like experience.",
     tech: ["React Native", "React Paper", "JavaScript"],
-    tag: "Personal",
+    tag: "Freelance",
     source: "https://github.com/ragOP/Cove",
     image: "/cove-app.png",
   },
@@ -62,14 +82,14 @@ const projects = [
   },
 ];
 
-const TABS = ["Personal", "Client"];
+const TABS = ["Personal", "Freelance"];
 
 export default function ProjectsSection() {
   return (
     <section id="projects" className="scroll-mt-[96px] mt-20 md:mt-32 px-4 max-w-6xl mx-auto">
       <h2 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-900 dark:text-white tracking-tight">Projects</h2>
       <p className="text-neutral-600 dark:text-neutral-300 text-center text-sm md:text-base mb-8 max-w-xl mx-auto">
-        A selection of personal, client, and open source projects showcasing my work and expertise.
+        A selection of personal, freelance, and open source projects showcasing my work and expertise.
       </p>
       <Tabs defaultValue="Personal" className="w-full">
         <TabsList className="flex justify-center mb-8 gap-2 bg-zinc-100 dark:bg-zinc-800 p-1 border border-zinc-200 dark:border-zinc-700 rounded-lg mx-auto max-w-md w-full">
@@ -161,7 +181,7 @@ export default function ProjectsSection() {
                       <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold tracking-wide z-10 ${
                         project.tag === "Personal"
                           ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200"
-                          : project.tag === "Client"
+                          : project.tag === "Freelance"
                           ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200"
                           : "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200"
                       }`}>

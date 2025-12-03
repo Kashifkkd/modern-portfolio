@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 
 const skillGroups = [
@@ -20,7 +19,7 @@ const skillGroups = [
       },
       {
         name: "Tailwind CSS",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
         description: "Utility-first CSS",
       },
       {
@@ -30,7 +29,7 @@ const skillGroups = [
       },
       {
         name: "ShadCN UI",
-        logo: "/window.svg",
+        logo: "https://ui.shadcn.com/favicon.ico",
         description: "Beautiful UI Components",
       },
       {
@@ -40,7 +39,7 @@ const skillGroups = [
       },
       {
         name: "Framer Motion",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framer/framer-original.svg",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framer/framer-original.svg",
         description: "Animation Library",
       },
       {
@@ -50,7 +49,7 @@ const skillGroups = [
       },
       {
         name: "TanStack",
-        logo: "https://tanstack.com/logo.svg",
+        logo: "https://tanstack.com/_next/static/media/logo-light.5c3a4b4e.svg",
         description: "React Query/Table/Router",
       },
     ],
@@ -62,6 +61,11 @@ const skillGroups = [
         name: "Node.js",
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
         description: "Backend Runtime",
+      },
+      {
+        name: "Express.js",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+        description: "Web Framework",
       },
       {
         name: "SQL",
@@ -80,7 +84,7 @@ const skillGroups = [
     skills: [
       {
         name: "System Design",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/architecture/architecture-original.svg",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg",
         description: "Designing Scalable Systems",
       },
       {
@@ -117,6 +121,44 @@ const skillGroups = [
   },
 ];
 
+function SkillIcon({ src, alt }: { src: string; alt: string }) {
+  const [imgError, setImgError] = useState(false);
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    if (!imgError) {
+      setImgError(true);
+      // Fallback to a simple icon or text
+      setImgSrc("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5z'/%3E%3Cpath d='M2 17l10 5 10-5'/%3E%3Cpath d='M2 12l10 5 10-5'/%3E%3C/svg%3E");
+    }
+  };
+
+  if (imgError) {
+    return (
+      <div className="w-12 h-12 flex items-center justify-center text-blue-600 dark:text-blue-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+          <path d="M2 17l10 5 10-5" />
+          <path d="M2 12l10 5 10-5" />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      width={48}
+      height={48}
+      className="object-contain w-12 h-12"
+      loading="lazy"
+      draggable={false}
+      onError={handleError}
+    />
+  );
+}
+
 export default function SkillsSection() {
   return (
     <section id="skills" className="scroll-mt-[96px] relative mt-20 md:mt-32 max-w-6xl mx-auto px-4 md:px-8 lg:px-10 z-10">
@@ -149,15 +191,7 @@ export default function SkillsSection() {
                   style={{ minWidth: 100, minHeight: 100 }}
                 >
                   <span className="flex items-center justify-center rounded-full border-4 border-gradient-to-br from-blue-400 via-purple-400 to-pink-400 dark:from-blue-700 dark:via-purple-700 dark:to-pink-700 bg-white/60 dark:bg-zinc-900/60 shadow-xl backdrop-blur-lg transition-all duration-300 w-20 h-20 md:w-24 md:h-24">
-                    <Image
-                      src={skill.logo}
-                      alt={skill.name}
-                      width={48}
-                      height={48}
-                      className="object-contain"
-                      loading="lazy"
-                      draggable={false}
-                    />
+                    <SkillIcon src={skill.logo} alt={skill.name} />
                   </span>
                   <span className="mt-2 text-center font-medium text-xs md:text-sm text-gray-900 dark:text-white">{skill.name}</span>
                 </motion.div>
