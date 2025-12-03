@@ -7,12 +7,12 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 const projects = [
   {
     title: "Portfolio Website",
-    description: "A modern, animated portfolio built with Next.js, Tailwind CSS, and Framer Motion.",
+    description: "A modern, animated portfolio website showcasing my work and expertise. Features include an interactive hero section with typewriter effects, animated journey timeline, skills showcase, live project previews with embedded iframes, testimonials, certifications, and contact section. Built with smooth animations, dark/light mode support, responsive design, and entry animations for an engaging user experience.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
     tag: "Personal",
     link: "https://kashif-portfolio.vercel.app/",
     source: "https://github.com/Kashifkkd/my-mentor-gpt",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80",
+    iframeUrl: "https://kashif-portfolio.vercel.app/",
   },
   {
     title: "My Mentor GPT",
@@ -22,7 +22,7 @@ const projects = [
     tag: "Personal",
     link: "https://my-mentor-gpt.vercel.app/",
     source: "https://github.com/Kashifkkd/my-mentor-gpt",
-    image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80",
+    iframeUrl: "https://my-mentor-gpt.vercel.app/",
   },
   {
     title: "Global Tours & Travels",
@@ -32,7 +32,7 @@ const projects = [
     tag: "Client",
     link: "https://globaltoursandtravels.vercel.app/",
     source: "https://github.com/Kashifkkd/tours-and-travels",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    iframeUrl: "https://globaltoursandtravels.vercel.app/",
   },
   {
     title: "The Celiac Store",
@@ -42,15 +42,15 @@ const projects = [
     tag: "Client",
     link: "https://theceliacstore-fe.vercel.app/",
     source: "https://github.com/farish-jamal/theceliacstore-FE",
-    image: "https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=600&q=80",
+    iframeUrl: "https://theceliacstore-fe.vercel.app/",
   },
   {
-    title: "Mobile App",
-    description: "A cross-platform mobile app for task management.",
-    tech: ["React Native", "Expo"],
+    title: "Cove Social App",
+    description: "A modern chat application built with React Native, featuring real-time messaging, media sharing, friend requests, and WhatsApp-like experience.",
+    tech: ["React Native", "React Paper", "JavaScript"],
     tag: "Personal",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+    source: "https://github.com/ragOP/Cove",
+    image: "/cove-app.png",
   },
   {
     title: "Open Source UI Kit",
@@ -62,7 +62,7 @@ const projects = [
   },
 ];
 
-const TABS = ["Personal", "Client", "Open Source"];
+const TABS = ["Personal", "Client"];
 
 export default function ProjectsSection() {
   return (
@@ -97,14 +97,30 @@ export default function ProjectsSection() {
                       title={project.title}
                       description={project.description}
                       header={
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className="object-cover object-top w-full h-full transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                          priority={idx === 0}
-                        />
+                        project.iframeUrl ? (
+                          <div className="relative w-full h-full overflow-hidden bg-white">
+                            <iframe
+                              src={project.iframeUrl}
+                              className="absolute top-0 left-0 w-[200%] h-[200%] border-0 pointer-events-none"
+                              title={project.title}
+                              loading="lazy"
+                              sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                              style={{ 
+                                transform: "scale(0.5)", 
+                                transformOrigin: "top left"
+                              }}
+                            />
+                          </div>
+                        ) : (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover object-top w-full h-full transition-transform duration-300 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            priority={idx === 0}
+                          />
+                        )
                       }
                       className=""
                     >
