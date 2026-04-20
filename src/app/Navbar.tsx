@@ -191,7 +191,7 @@ export default function Navbar() {
           })}
         </nav>
         {/* ShadCN Theme Toggle */}
-        <div className="ml-2" style={{ zIndex: 2 }}>
+        <div className="hidden md:block ml-2" style={{ zIndex: 2 }}>
           <ThemeToggle />
         </div>
         {/* Hamburger for mobile with Drawer */}
@@ -223,7 +223,7 @@ export default function Navbar() {
               </motion.button>
             </DrawerTrigger>
             <DrawerContent className="p-0 bg-white/90 dark:bg-black/90">
-              <nav className="flex flex-col gap-2 w-full px-4 py-8">
+              <nav className="flex flex-col gap-2 w-full px-4 pt-10 pb-12 items-center">
                 {navLinks.map((link) => {
                   const isActive = activeSection === link.id;
                   return (
@@ -242,7 +242,7 @@ export default function Navbar() {
                         }}
                         whileHover={{ scale: 1.05, x: 4 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-left w-full max-w-xs ${isActive
+                        className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-center w-full max-w-xs ${isActive
                           ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
                           : "text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10"
                           }`}
@@ -252,6 +252,12 @@ export default function Navbar() {
                     </DrawerClose>
                   );
                 })}
+                <div className="mt-8 flex flex-col items-center gap-3">
+                  <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Theme</span>
+                  <div className="scale-125">
+                    <ThemeToggle />
+                  </div>
+                </div>
               </nav>
             </DrawerContent>
           </Drawer>
