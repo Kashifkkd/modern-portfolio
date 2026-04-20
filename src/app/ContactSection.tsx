@@ -1,23 +1,9 @@
 "use client"
 
-import React, { useState } from "react";
 import { Github, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setForm({ name: "", email: "", message: "" });
-  }
 
   return (
     <section id="contact" className="scroll-mt-[96px] pb-24 relative max-w-2xl mx-auto mt-20 md:mt-32 px-4 md:px-8 lg:px-10 flex flex-col items-center">
@@ -34,10 +20,10 @@ export default function ContactSection() {
         style={{ maxWidth: 500 }}
       >
         <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
-          Let's build something amazing together.
+          Let&apos;s build something amazing together.
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          Skip the back-and-forth emails. Pick a time that works for you and let's hop on a call to discuss your project.
+          Skip the back-and-forth emails. Pick a time that works for you and let&apos;s hop on a call to discuss your project.
         </p>
         <motion.a
           href="https://cal.com/kashif-deshmukh"

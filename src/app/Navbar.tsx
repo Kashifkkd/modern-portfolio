@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import Image from "next/image";
 import { ImageModal } from "@/components/ui/image-modal";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useSearchParams, useRouter } from "next/navigation";

@@ -92,7 +92,7 @@ export const InfiniteMovingCards = ({
               <div className="flex-1 px-6 pt-5 pb-4">
                 {/* Large decorative quote mark */}
                 <span className="block text-5xl font-serif leading-none text-[#00C6FB]/20 dark:text-[#00C6FB]/20 select-none mb-1">
-                  "
+                  &quot;
                 </span>
                 <p className="text-sm md:text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-200 font-normal">
                   {item.quote}

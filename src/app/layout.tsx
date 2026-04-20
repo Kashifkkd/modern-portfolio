@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono, Plus_Jakarta_Sans, Orbitron } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "./Navbar";
 import type { Metadata } from "next";
@@ -27,6 +28,7 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kashif-portfolio.vercel.app"),
   title: "Kashif Deshmukh - Full Stack Developer Portfolio",
   description: "Full Stack Developer specializing in React, Next.js, React Native, and Node.js. I create modern, scalable web and mobile applications that solve real-world problems.",
   keywords: [
@@ -94,7 +96,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable} ${jakartaSans.variable} ${orbitron.variable}`}>
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         {children}
         <Analytics />
       </body>
