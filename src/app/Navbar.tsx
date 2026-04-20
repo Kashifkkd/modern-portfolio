@@ -19,7 +19,6 @@ const navLinks = [
   { href: "#skills", label: "Skills", id: "skills", urlParam: "skills" },
   { href: "#projects", label: "Projects", id: "projects", urlParam: "projects" },
   { href: "#testimonials", label: "Testimonials", id: "testimonials", urlParam: "testimonials" },
-  { href: "#certifications", label: "Certifications", id: "certifications", urlParam: "certifications" },
   { href: "#contact", label: "Contact", id: "contact", urlParam: "contact" },
 ];
 
@@ -47,9 +46,9 @@ export default function Navbar() {
     if (window.scrollY < 100) {
       return "hero";
     }
-    
+
     const scrollPos = window.scrollY + 200;
-    
+
     for (let i = navLinks.length - 1; i >= 0; i--) {
       const section = document.getElementById(navLinks[i].id);
       if (section && section.offsetTop <= scrollPos) {
@@ -72,9 +71,9 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       if (isScrollingRef.current) return; // Skip during programmatic scroll
-      
+
       const newActiveSection = getActiveSectionFromScroll();
-      
+
       if (newActiveSection !== lastActiveSectionRef.current) {
         lastActiveSectionRef.current = newActiveSection;
         setActiveSection(newActiveSection);
@@ -95,7 +94,7 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', throttledScroll, { passive: true });
-    
+
     // Initial check
     handleScroll();
 
@@ -152,14 +151,14 @@ export default function Navbar() {
             }, 1000);
           }}
         >
-          <Image
-            src="/kashif_profile_img.jpeg"
-            alt="Kashif Deshmukh"
-            width={40}
-            height={40}
-            className="rounded-full border-2 border-white/30 dark:border-white/20 shadow-md hover:scale-105 transition-transform duration-200"
-          />
-          <span className="font-extrabold text-lg tracking-tight text-black dark:text-white">Kashif</span>
+          <span
+            className="text-2xl tracking-tighter select-none font-bold uppercase"
+            style={{ fontFamily: "var(--font-orbitron)" }}
+          >
+            <span className="bg-gradient-to-r from-[#00C6FB] via-[#8F00FF] to-[#FF61A6] bg-clip-text text-transparent drop-shadow-sm">
+              Kashif
+            </span>
+          </span>
         </a>
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-2 items-center">
@@ -180,11 +179,10 @@ export default function Navbar() {
                 }}
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.96 }}
-                className={`relative px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 bg-transparent border-none cursor-pointer ${
-                  isActive
-                    ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-semibold"
-                    : "text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10"
-                }`}
+                className={`relative px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 bg-transparent border-none cursor-pointer ${isActive
+                  ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-semibold"
+                  : "text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10"
+                  }`}
                 style={{ zIndex: 1 }}
               >
                 {link.label}
@@ -244,11 +242,10 @@ export default function Navbar() {
                         }}
                         whileHover={{ scale: 1.05, x: 4 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-left w-full max-w-xs ${
-                          isActive
-                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
-                            : "text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10"
-                        }`}
+                        className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-left w-full max-w-xs ${isActive
+                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
+                          : "text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10"
+                          }`}
                       >
                         {link.label}
                       </motion.button>

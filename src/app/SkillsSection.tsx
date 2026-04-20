@@ -64,8 +64,9 @@ const skillGroups = [
       },
       {
         name: "Express.js",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+        logo: "https://cdn.simpleicons.org/express/000000",
         description: "Web Framework",
+        invertOnDark: true,
       },
       {
         name: "SQL",
@@ -121,14 +122,13 @@ const skillGroups = [
   },
 ];
 
-function SkillIcon({ src, alt }: { src: string; alt: string }) {
+function SkillIcon({ src, alt, invert }: { src: string; alt: string; invert?: boolean }) {
   const [imgError, setImgError] = useState(false);
   const [imgSrc, setImgSrc] = useState(src);
 
   const handleError = () => {
     if (!imgError) {
       setImgError(true);
-      // Fallback to a simple icon or text
       setImgSrc("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5z'/%3E%3Cpath d='M2 17l10 5 10-5'/%3E%3Cpath d='M2 12l10 5 10-5'/%3E%3C/svg%3E");
     }
   };
@@ -151,7 +151,7 @@ function SkillIcon({ src, alt }: { src: string; alt: string }) {
       alt={alt}
       width={48}
       height={48}
-      className="object-contain w-12 h-12"
+      className={`object-contain w-12 h-12${invert ? " dark:invert" : ""}`}
       loading="lazy"
       draggable={false}
       onError={handleError}
@@ -191,7 +191,7 @@ export default function SkillsSection() {
                   style={{ minWidth: 100, minHeight: 100 }}
                 >
                   <span className="flex items-center justify-center rounded-full border-4 border-gradient-to-br from-blue-400 via-purple-400 to-pink-400 dark:from-blue-700 dark:via-purple-700 dark:to-pink-700 bg-white/60 dark:bg-zinc-900/60 shadow-xl backdrop-blur-lg transition-all duration-300 w-20 h-20 md:w-24 md:h-24">
-                    <SkillIcon src={skill.logo} alt={skill.name} />
+                    <SkillIcon src={skill.logo} alt={skill.name} invert={'invertOnDark' in skill ? skill.invertOnDark : false} />
                   </span>
                   <span className="mt-2 text-center font-medium text-xs md:text-sm text-gray-900 dark:text-white">{skill.name}</span>
                 </motion.div>

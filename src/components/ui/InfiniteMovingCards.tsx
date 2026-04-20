@@ -26,92 +26,102 @@ export const InfiniteMovingCards = ({
   useEffect(() => {
     addAnimation();
   }, []);
+
   const [start, setStart] = useState(false);
+
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
-
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
         if (scrollerRef.current) {
           scrollerRef.current.appendChild(duplicatedItem);
         }
       });
-
       getDirection();
       getSpeed();
       setStart(true);
     }
   }
+
   const getDirection = () => {
     if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards",
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse",
-        );
-      }
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        direction === "left" ? "forwards" : "reverse"
+      );
     }
   };
+
   const getSpeed = () => {
     if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
+      const duration =
+        speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
+      containerRef.current.style.setProperty("--animation-duration", duration);
     }
   };
+
   return (
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
-        className,
+        "scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]",
+        className
       )}
     >
       <ul
         ref={scrollerRef}
         className={cn(
-          "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
+          "flex w-max min-w-full shrink-0 flex-nowrap gap-5 py-6",
           start && "animate-scroll",
-          pauseOnHover && "hover:[animation-play-state:paused]",
+          pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
         {items.map((item, idx) => (
           <li
-            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-b-0 border-zinc-200 bg-[linear-gradient(180deg,#fafafa,#f5f5f5)] px-8 py-6 md:w-[450px] dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#27272a,#18181b)]"
             key={idx}
+            className="relative w-[340px] md:w-[420px] shrink-0 flex flex-col"
+            style={{ minHeight: 220 }}
           >
-            <blockquote>
-              <div
-                aria-hidden="true"
-                className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-              ></div>
-              <span className="relative z-20 text-sm leading-[1.6] font-normal text-neutral-800 dark:text-gray-100">
-                {item.quote}
-              </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
-                    {item.name}
-                  </span>
-                  <span className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
-                    {item.title}
-                  </span>
+            {/* Card */}
+            <div className="relative flex flex-col h-full rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 bg-white/70 dark:bg-zinc-900/80 backdrop-blur-xl shadow-xl group transition-transform duration-300 hover:-translate-y-1">
+              {/* Top accent gradient bar */}
+              <div className="h-1 w-full bg-gradient-to-r from-[#00C6FB] via-[#8F00FF] to-[#FF61A6]" />
+
+              {/* Quote body */}
+              <div className="flex-1 px-6 pt-5 pb-4">
+                {/* Large decorative quote mark */}
+                <span className="block text-5xl font-serif leading-none text-[#00C6FB]/20 dark:text-[#00C6FB]/20 select-none mb-1">
+                  "
                 </span>
+                <p className="text-sm md:text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-200 font-normal">
+                  {item.quote}
+                </p>
               </div>
-            </blockquote>
+
+              {/* Footer — always at bottom */}
+              <div className="px-6 py-4 border-t border-black/5 dark:border-white/10 flex items-center justify-between gap-3 bg-black/[0.02] dark:bg-white/[0.02]">
+                {/* Avatar initial + info */}
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#00C6FB] to-[#8F00FF] flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-md">
+                    {item.name.charAt(0)}
+                  </div>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-sm font-semibold text-neutral-900 dark:text-white">
+                      {item.name}
+                    </span>
+                    <span className="text-xs text-neutral-400 dark:text-neutral-500">
+                      {item.title}
+                    </span>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
-}; 
+};

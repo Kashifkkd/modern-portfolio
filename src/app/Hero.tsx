@@ -2,7 +2,7 @@
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { GridBackground } from "@/components/ui/grid-background";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Phone, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
@@ -163,6 +163,22 @@ export default function Hero() {
                 image: "/linkedin-icon.png",
                 icon: <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />,
                 onClick: () => window.open('https://www.linkedin.com/in/kashif-deshmukh-23797a173/', '_blank'),
+              },
+              {
+                id: 3,
+                name: "Call Me",
+                designation: "+91 7058578937",
+                image: "",
+                icon: <Phone className="w-5 h-5 sm:w-6 sm:h-6" />,
+                onClick: () => window.open('tel:+917058578937'),
+              },
+              {
+                id: 4,
+                name: "Email Me",
+                designation: "kashifdeshmukh786@gmail.com",
+                image: "",
+                icon: <Mail className="w-5 h-5 sm:w-6 sm:h-6" />,
+                onClick: () => window.open('mailto:kashifdeshmukh786@gmail.com'),
               },
             ]}
           />

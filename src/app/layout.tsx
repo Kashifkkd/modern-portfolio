@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans, Orbitron } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar";
 import type { Metadata } from "next";
@@ -12,6 +12,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["700", "800"],
+});
+
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -81,7 +93,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="theme-color" content="#00C6FB" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable} ${jakartaSans.variable} ${orbitron.variable}`}>
         <Navbar />
         {children}
         <Analytics />

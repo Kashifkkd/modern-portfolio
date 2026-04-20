@@ -5,7 +5,6 @@ import JourneySection from "./JourneySection";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
 import TestimonialsSection from "./TestimonialsSection";
-import CertificationsSection from "./CertificationsSection";
 import ContactSection from "./ContactSection";
 import EntryAnimation from "./EntryAnimation";
 import { useState, useEffect } from "react";
@@ -34,7 +33,6 @@ export default function Home() {
           <section><SkillsSection /></section>
           <section><ProjectsSection /></section>
           <section><TestimonialsSection /></section>
-          <section><CertificationsSection /></section>
           <section><ContactSection /></section>
         </>
       )}
