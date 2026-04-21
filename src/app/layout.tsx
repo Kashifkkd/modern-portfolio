@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./Navbar";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,11 +97,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable} ${jakartaSans.variable} ${orbitron.variable}`}>
-        <Suspense fallback={null}>
-          <Navbar />
-        </Suspense>
-        {children}
-        <Analytics />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <Suspense fallback={null}>
+            <Navbar />
+          </Suspense>
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

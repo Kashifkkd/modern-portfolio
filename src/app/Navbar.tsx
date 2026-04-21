@@ -2,11 +2,13 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ThemeProvider } from "@/components/theme-provider";
+
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ImageModal } from "@/components/ui/image-modal";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useSearchParams, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 // Add shimmer animation styles
 const shimmerStyle =
@@ -30,6 +32,8 @@ function scrollWithOffset(id: string) {
 }
 
 export default function Navbar() {
+  const theme = useTheme();
+
   const [navOpen, setNavOpen] = useState(false);
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
@@ -38,6 +42,8 @@ export default function Navbar() {
   const searchParams = useSearchParams();
   const isScrollingRef = useRef(false);
   const lastActiveSectionRef = useRef<string>("hero");
+
+  const isDark = theme.theme === "dark";
 
   // Simple function to get active section from scroll position
   const getActiveSectionFromScroll = () => {
@@ -128,148 +134,149 @@ export default function Navbar() {
   }, []); // Only run on mount
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <header
-        id="main-navbar"
-        className={
-          `fixed top-4 left-1/2 z-50 -translate-x-1/2 w-4/5 max-w-5xl rounded-3xl shadow-2xl border border-white/30 dark:border-white/10 bg-white/30 dark:bg-black/30 backdrop-blur-2xl backdrop-saturate-150 flex items-center justify-between px-4 py-2 md:py-3 transition-all duration-300 glass-navbar overflow-hidden ${shimmerStyle}`
-        }
+    <header
+      id="main-navbar"
+      className={
+        cn(
+          `fixed top-4 left-1/2 z-50 -translate-x-1/2 w-4/5 max-w-5xl rounded-3xl shadow-2xl border border-white/30 dark:border-white/10 bg-white dark:bg-black/30 backdrop-blur-2xl backdrop-saturate-150 flex items-center justify-between px-4 py-2 md:py-3 transition-all duration-300 glass-navbar overflow-hidden`,
+          isDark ? shimmerStyle : "border-1 border-black/5",
+        )
+      }
+    >
+      {/* Logo */}
+      <a
+        href="#hero"
+        className="flex items-center gap-3 select-none cursor-pointer"
+        onClick={e => {
+          e.preventDefault();
+          isScrollingRef.current = true;
+          scrollWithOffset('hero');
+          setActiveSection('hero');
+          updateUrlParam('hero');
+          setTimeout(() => {
+            isScrollingRef.current = false;
+          }, 1000);
+        }}
       >
-        {/* Logo */}
-        <a
-          href="#hero"
-          className="flex items-center gap-3 select-none cursor-pointer"
-          onClick={e => {
-            e.preventDefault();
-            isScrollingRef.current = true;
-            scrollWithOffset('hero');
-            setActiveSection('hero');
-            updateUrlParam('hero');
-            setTimeout(() => {
-              isScrollingRef.current = false;
-            }, 1000);
+        <span
+          className="text-2xl tracking-tighter select-none font-bold uppercase"
+          style={{ fontFamily: "var(--font-orbitron)" }}
+        >
+          <span className="bg-gradient-to-r from-[#00C6FB] via-[#8F00FF] to-[#FF61A6] bg-clip-text text-transparent drop-shadow-sm">
+            Kashif
+          </span>
+        </span>
+      </a>
+      {/* Desktop nav */}
+      <nav className="hidden md:flex gap-2 items-center">
+        {navLinks.map((link) => {
+          const isActive = activeSection === link.id;
+          return (
+            <motion.button
+              key={link.href}
+              onClick={() => {
+                isScrollingRef.current = true;
+                scrollWithOffset(link.id);
+                setActiveSection(link.id);
+                lastActiveSectionRef.current = link.id;
+                updateUrlParam(link.id);
+                setTimeout(() => {
+                  isScrollingRef.current = false;
+                }, 1000);
+              }}
+              whileHover={{ scale: 1.08, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className={`relative px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 bg-transparent border-none cursor-pointer ${isActive
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-semibold"
+                : "text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10"
+                }`}
+              style={{ zIndex: 1 }}
+            >
+              {link.label}
+            </motion.button>
+          );
+        })}
+      </nav>
+      {/* ShadCN Theme Toggle */}
+      <div className="hidden md:block ml-2" style={{ zIndex: 2 }}>
+        <ThemeToggle />
+      </div>
+      {/* Hamburger for mobile with Drawer */}
+      <div className="md:hidden ml-2" style={{ zIndex: 2 }}>
+        <Drawer
+          open={navOpen}
+          onOpenChange={(open) => {
+            setNavOpen(open);
+            if (!open && scrollTargetRef.current) {
+              // Wait a tick for Drawer to finish closing
+              setTimeout(() => {
+                scrollWithOffset(scrollTargetRef.current!);
+                scrollTargetRef.current = null;
+              }, 10);
+            }
           }}
         >
-          <span
-            className="text-2xl tracking-tighter select-none font-bold uppercase"
-            style={{ fontFamily: "var(--font-orbitron)" }}
-          >
-            <span className="bg-gradient-to-r from-[#00C6FB] via-[#8F00FF] to-[#FF61A6] bg-clip-text text-transparent drop-shadow-sm">
-              Kashif
-            </span>
-          </span>
-        </a>
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-2 items-center">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <motion.button
-                key={link.href}
-                onClick={() => {
-                  isScrollingRef.current = true;
-                  scrollWithOffset(link.id);
-                  setActiveSection(link.id);
-                  lastActiveSectionRef.current = link.id;
-                  updateUrlParam(link.id);
-                  setTimeout(() => {
-                    isScrollingRef.current = false;
-                  }, 1000);
-                }}
-                whileHover={{ scale: 1.08, y: -2 }}
-                whileTap={{ scale: 0.96 }}
-                className={`relative px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 bg-transparent border-none cursor-pointer ${isActive
-                  ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-semibold"
-                  : "text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10"
-                  }`}
-                style={{ zIndex: 1 }}
-              >
-                {link.label}
-              </motion.button>
-            );
-          })}
-        </nav>
-        {/* ShadCN Theme Toggle */}
-        <div className="hidden md:block ml-2" style={{ zIndex: 2 }}>
-          <ThemeToggle />
-        </div>
-        {/* Hamburger for mobile with Drawer */}
-        <div className="md:hidden ml-2" style={{ zIndex: 2 }}>
-          <Drawer
-            open={navOpen}
-            onOpenChange={(open) => {
-              setNavOpen(open);
-              if (!open && scrollTargetRef.current) {
-                // Wait a tick for Drawer to finish closing
-                setTimeout(() => {
-                  scrollWithOffset(scrollTargetRef.current!);
-                  scrollTargetRef.current = null;
-                }, 10);
-              }
-            }}
-          >
-            <DrawerTrigger asChild>
-              <motion.button
-                className="p-2 rounded-full bg-white/40 dark:bg-black/40 shadow border border-white/30 dark:border-white/10 backdrop-blur"
-                aria-label="Open navigation menu"
-                whileTap={{ scale: 0.85, rotate: 10 }}
-              >
-                {navOpen ? (
-                  <XMarkIcon className="w-6 h-6 text-black dark:text-white" />
-                ) : (
-                  <Bars3Icon className="w-6 h-6 text-black dark:text-white" />
-                )}
-              </motion.button>
-            </DrawerTrigger>
-            <DrawerContent className="p-0 bg-white/90 dark:bg-black/90">
-              <nav className="flex flex-col gap-2 w-full px-4 pt-10 pb-12 items-center">
-                {navLinks.map((link) => {
-                  const isActive = activeSection === link.id;
-                  return (
-                    <DrawerClose asChild key={link.href}>
-                      <motion.button
-                        onClick={() => {
-                          scrollTargetRef.current = link.id;
-                          isScrollingRef.current = true;
-                          setActiveSection(link.id);
-                          lastActiveSectionRef.current = link.id;
-                          updateUrlParam(link.id);
-                          setNavOpen(false);
-                          setTimeout(() => {
-                            isScrollingRef.current = false;
-                          }, 1000);
-                        }}
-                        whileHover={{ scale: 1.05, x: 4 }}
-                        whileTap={{ scale: 0.97 }}
-                        className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-center w-full max-w-xs ${isActive
-                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
-                          : "text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10"
-                          }`}
-                      >
-                        {link.label}
-                      </motion.button>
-                    </DrawerClose>
-                  );
-                })}
-                <div className="mt-8 flex flex-col items-center gap-3">
-                  <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Theme</span>
-                  <div className="scale-125">
-                    <ThemeToggle />
-                  </div>
+          <DrawerTrigger asChild>
+            <motion.button
+              className="p-2 rounded-full bg-white/40 dark:bg-black/40 shadow border border-white/30 dark:border-white/10 backdrop-blur"
+              aria-label="Open navigation menu"
+              whileTap={{ scale: 0.85, rotate: 10 }}
+            >
+              {navOpen ? (
+                <XMarkIcon className="w-6 h-6 text-black dark:text-white" />
+              ) : (
+                <Bars3Icon className="w-6 h-6 text-black dark:text-white" />
+              )}
+            </motion.button>
+          </DrawerTrigger>
+          <DrawerContent className="p-0 bg-white/90 dark:bg-black/90">
+            <nav className="flex flex-col gap-2 w-full px-4 pt-10 pb-12 items-center">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <DrawerClose asChild key={link.href}>
+                    <motion.button
+                      onClick={() => {
+                        scrollTargetRef.current = link.id;
+                        isScrollingRef.current = true;
+                        setActiveSection(link.id);
+                        lastActiveSectionRef.current = link.id;
+                        updateUrlParam(link.id);
+                        setNavOpen(false);
+                        setTimeout(() => {
+                          isScrollingRef.current = false;
+                        }, 1000);
+                      }}
+                      whileHover={{ scale: 1.05, x: 4 }}
+                      whileTap={{ scale: 0.97 }}
+                      className={`px-3 py-3 rounded-lg text-lg font-semibold transition-colors bg-transparent border-none cursor-pointer text-center w-full max-w-xs ${isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
+                        : "text-black/90 dark:text-white/90 hover:bg-black/10 dark:hover:bg-white/10"
+                        }`}
+                    >
+                      {link.label}
+                    </motion.button>
+                  </DrawerClose>
+                );
+              })}
+              <div className="mt-8 flex flex-col items-center gap-3">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Theme</span>
+                <div className="scale-125">
+                  <ThemeToggle />
                 </div>
-              </nav>
-            </DrawerContent>
-          </Drawer>
-        </div>
-        {/* Image Preview Modal */}
-        <ImageModal
-          isOpen={imageModalOpen}
-          onClose={() => setImageModalOpen(false)}
-          imageSrc="/kashif_profile_img.jpeg"
-          alt="Kashif Deshmukh - Full Preview"
-        />
-      </header>
-    </ThemeProvider>
+              </div>
+            </nav>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      {/* Image Preview Modal */}
+      <ImageModal
+        isOpen={imageModalOpen}
+        onClose={() => setImageModalOpen(false)}
+        imageSrc="/kashif_profile_img.jpeg"
+        alt="Kashif Deshmukh - Full Preview"
+      />
+    </header>
   );
 }
 
