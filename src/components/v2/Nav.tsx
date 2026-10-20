@@ -11,7 +11,7 @@ const links = [
   { href: "#work", label: "Work", n: "01" },
   { href: "#proof", label: "Proof", n: "02" },
   { href: "#services", label: "Services", n: "03" },
-  { href: "#experience", label: "Experience", n: "04" },
+  { href: "#archive", label: "Archive", n: "04" },
   { href: "#about", label: "About", n: "05" },
   { href: "#faq", label: "FAQ", n: "06" },
   { href: "#contact", label: "Contact", n: "07" },

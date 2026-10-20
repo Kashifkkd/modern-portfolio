@@ -43,6 +43,10 @@ export type Project = {
   href?: string;
   source?: string;
   featured?: boolean; // full-width card
+  industry: string;
+  team: string;      // employer, agency or "Independent"
+  outcome: string[]; // facts a client can check — the engineer's equivalent of an award list
+  story: string;     // one honest sentence
 };
 
 export const projects: Project[] = [
@@ -58,6 +62,10 @@ export const projects: Project[] = [
     stack: ["Python", "PostgreSQL", "Message queues", "Next.js"],
     image: "/work/firesight.svg",
     featured: true,
+    industry: "Media intelligence",
+    team: "D'Vinci Group",
+    outcome: ["In production, 2026", "Continuous high-volume ingestion", "Internal console used daily by analysts"],
+    story: "The most data-intensive thing I've built: a stream that never stops, turned into events a human can review.",
   },
   {
     slug: "stories-app",
@@ -70,6 +78,10 @@ export const projects: Project[] = [
       "Took over a live React Native product and rebuilt authentication, the feed, in-app subscriptions and the media pipeline, then shipped releases to both stores.",
     stack: ["React Native", "Expo", "Supabase"],
     image: "/work/storycloud.svg",
+    industry: "Consumer media",
+    team: "D'Vinci Group",
+    outcome: ["Live on App Store & Google Play", "Auth, feed, subscriptions rebuilt", "Media pipeline with caching & prefetch"],
+    story: "Inherited mid-flight, stabilised, then shipped. The kind of handover most teams dread.",
   },
   {
     slug: "conversational-platform",
@@ -82,6 +94,10 @@ export const projects: Project[] = [
       "Real-time chat, CRM and automation suite used by enterprise retail clients. Built the visual chatbot builder, the API and background-job layer, and led front-end performance work.",
     stack: ["React", "TypeScript", "Node.js", "MongoDB"],
     image: "/work/jwero.svg",
+    industry: "Retail SaaS",
+    team: "Tanika Tech Jewels",
+    outcome: ["Used by enterprise retail clients", "Visual chatbot builder shipped", "Front-end and API performance work"],
+    story: "Three years on one product. Where I learned what production actually means.",
   },
   {
     slug: "mentor-gpt",
@@ -96,6 +112,10 @@ export const projects: Project[] = [
     image: "/work/mentor-gpt.svg",
     href: "https://my-mentor-gpt.vercel.app/",
     source: "https://github.com/Kashifkkd/my-mentor-gpt",
+    industry: "Education · AI",
+    team: "Independent",
+    outcome: ["Live demo", "Open source on GitHub"],
+    story: "Built to understand streaming LLM UX properly before putting it in front of a client.",
   },
   {
     slug: "teamsync",
@@ -109,10 +129,21 @@ export const projects: Project[] = [
     image: "/work/teamsync.svg",
     href: "https://team-sync-lemon.vercel.app/",
     source: "https://github.com/Kashifkkd/TeamSync",
+    industry: "Productivity SaaS",
+    team: "Independent",
+    outcome: ["Live demo", "Open source on GitHub"],
+    story: "Multi-tenancy done properly: workspace isolation first, features second.",
   },
 ];
 
 export const featuredProjects = projects.slice(0, 5);
+
+export const heroMeta = [
+  { k: "Launch", v: "2026 · Edition 02" },
+  { k: "Based", v: "Mumbai, working globally" },
+  { k: "Focus", v: "Full-stack · AI · Mobile" },
+  { k: "Built with", v: "Next.js · R3F · GSAP" },
+];
 
 export const proof = [
   { value: 3, suffix: "+", label: "years in production engineering" },
@@ -231,6 +262,20 @@ export const faq = [
   { q: "Can you handle both the app and the backend?", a: "That's the point. Next.js or React Native on the front, Node or Python with Postgres or Supabase behind it, deployed and monitored. One person accountable for the whole thing." },
   { q: "What about AI features?", a: "I ship them inside real products with evaluation loops and cost budgets, using OpenAI, Claude or self-hosted open-weight models depending on the economics. I'll tell you honestly when a feature doesn't need an LLM." },
   { q: "How do we start?", a: "Book a 30-minute call. If it's a fit, you get a written plan with milestones and a price within a few days." },
+];
+
+export const footerLinks = [
+  { label: "Start a project", items: [{ label: "Book a 30-min call", href: "https://cal.com/kashif-deshmukh" }] },
+  { label: "Where the code lives", items: [{ label: "GitHub", href: "https://github.com/Kashifkkd" }] },
+  { label: "Work & life updates", items: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/kashif-deshmukh-23797a173/" }] },
+  { label: "On paper", items: [{ label: "Résumé (PDF)", href: "/Kashif-Resume.pdf" }] },
+];
+
+export const credits = [
+  { k: "Design & development", v: "Kashif Deshmukh" },
+  { k: "Type", v: "Geist, Geist Mono, Instrument Serif" },
+  { k: "Motion", v: "GSAP, Lenis, React Three Fiber" },
+  { k: "Inspired by", v: "The craft of Huy Phan, Dennis Snellenberg and the Awwwards community" },
 ];
 
 export const marquee = ["Available for select projects", "Next.js", "React Native", "AI / LLM", "Node & Python", "Supabase", "Based in Mumbai, working worldwide"];

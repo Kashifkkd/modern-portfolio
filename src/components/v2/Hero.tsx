@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { profile } from "@/lib/site";
+import { heroMeta, profile } from "@/lib/site";
 import TextReveal from "./TextReveal";
 import Magnetic from "./Magnetic";
 import LocalTime from "./LocalTime";
@@ -100,10 +100,11 @@ export default function Hero({ ready }: { ready: boolean }) {
         </div>
       </div>
 
-      <div data-fade className="rule mt-8 hidden items-center justify-between pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint opacity-0 md:flex">
-        <span>{profile.location} · <LocalTime /></span>
-        <span>Remote · UK / EU / US / IN</span>
-      </div>
+      <dl data-fade className="rule mt-8 hidden grid-cols-4 gap-6 pt-4 font-mono text-[11px] uppercase tracking-[0.14em] opacity-0 md:grid">
+        {heroMeta.map((m) => (
+          <div key={m.k}><dt className="text-fg-faint">{m.k}</dt><dd className="mt-1 text-fg-muted">{m.v}</dd></div>
+        ))}
+      </dl>
     </section>
   );
 }
