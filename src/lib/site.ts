@@ -215,6 +215,24 @@ export const testimonials = [
   },
 ];
 
+export const facts = [
+  { k: "Response time", v: "< 1 business day" },
+  { k: "Time zones", v: "IST · overlaps UK, EU, US-East" },
+  { k: "Engagements", v: "Fixed scope or weekly" },
+  { k: "Tooling", v: "Linear · GitHub · Slack · Loom" },
+  { k: "NDA", v: "Happy to sign before we talk" },
+  { k: "Handover", v: "Docs, CI and a recorded walkthrough" },
+];
+
+export const faq = [
+  { q: "What does a project cost?", a: "Fixed-scope builds typically start around a few thousand USD for a focused product or integration and scale with scope. Embedded work is billed weekly. You get a written number before any work starts, never an hourly surprise." },
+  { q: "How fast can you start, and how long do things take?", a: "I usually start within one to two weeks of a signed plan. A focused MVP or integration lands in 3–6 weeks; larger platforms run in milestones with a demo every week." },
+  { q: "Do you work with agencies and existing teams?", a: "Yes. A good share of my work is white-label delivery for agencies or joining an in-house team mid-project. I fit into your tooling and ceremonies rather than imposing mine." },
+  { q: "Can you handle both the app and the backend?", a: "That's the point. Next.js or React Native on the front, Node or Python with Postgres or Supabase behind it, deployed and monitored. One person accountable for the whole thing." },
+  { q: "What about AI features?", a: "I ship them inside real products with evaluation loops and cost budgets, using OpenAI, Claude or self-hosted open-weight models depending on the economics. I'll tell you honestly when a feature doesn't need an LLM." },
+  { q: "How do we start?", a: "Book a 30-minute call. If it's a fit, you get a written plan with milestones and a price within a few days." },
+];
+
 export const marquee = ["Available for select projects", "Next.js", "React Native", "AI / LLM", "Node & Python", "Supabase", "Based in Mumbai, working worldwide"];
 
 export const stack = [

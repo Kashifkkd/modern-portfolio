@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -11,69 +12,97 @@ import LocalTime from "./LocalTime";
 // WebGL only on the client, after hydration; the static gradient underneath is the fallback.
 const SignalField = dynamic(() => import("./SignalField"), { ssr: false });
 
+/**
+ * Editorial statement hero: a three-line headline with the portrait set inline as a pill,
+ * a rotating scroll badge, and a three-column bottom bar (who / what next / where).
+ */
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(() => {
     if (!ready || !root.current) return;
-    gsap.fromTo(
-      root.current.querySelectorAll("[data-fade]"),
-      { autoAlpha: 0, y: 16 },
-      { autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.9 }
-    );
+    gsap.fromTo(root.current.querySelectorAll("[data-fade]"),
+      { autoAlpha: 0, y: 18 },
+      { autoAlpha: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.08, delay: 1 });
+    gsap.fromTo("[data-pill]", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power4.inOut", delay: 0.9 });
+    gsap.to("[data-badge]", { rotate: 360, duration: 14, ease: "none", repeat: -1 });
   }, { dependencies: [ready], scope: root });
 
   return (
-    <section ref={root} id="top" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-5 pb-10 pt-32 md:px-10 md:pb-14">
+    <section ref={root} id="top" className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-28 md:px-10 md:pb-10 md:pt-36">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_40%,#161616_0%,var(--bg)_100%)]" />
       {ready && <div className="absolute inset-0 -z-10"><SignalField /></div>}
 
-      <p data-fade className="eyebrow mb-6 opacity-0">
-        {profile.role} <span className="text-fg-faint">/</span> {profile.tagline}
-      </p>
+      <div data-fade className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-fg-muted opacity-0">
+        <span>{profile.role}</span>
+        <span className="hidden sm:inline">{profile.tagline}</span>
+      </div>
 
-      <h1 className="display text-[15vw] leading-[0.88] md:text-[11.5vw]">
+      <h1 className="display my-10 text-[13.5vw] leading-[0.9] md:my-0 md:text-[9vw]">
         {ready && (
           <>
-            <TextReveal as="span" className="block" type="lines" immediate delay={0.2}>Kashif</TextReveal>
-            <TextReveal as="span" className="block" type="lines" immediate delay={0.32}>
-              Deshmukh<span className="serif-accent text-accent">.</span>
+            <TextReveal as="span" className="block" immediate delay={0.2}>Software that</TextReveal>
+            <span className="flex flex-wrap items-center gap-x-[0.18em]">
+              <TextReveal as="span" className="block" immediate delay={0.3}>ships</TextReveal>
+              <span data-pill className="relative my-[0.08em] inline-block h-[0.72em] w-[1.6em] origin-left overflow-hidden rounded-full border border-line align-middle">
+                <Image src="/kashif_profile_img.jpeg" alt="" fill sizes="20vw" className="object-cover grayscale" priority />
+              </span>
+              <TextReveal as="span" className="block" immediate delay={0.4}>and</TextReveal>
+            </span>
+            <TextReveal as="span" className="block" immediate delay={0.5}>
+              <span className="serif-accent text-accent">holds up</span> in <span className="whitespace-nowrap">production<span className="text-accent">.</span></span>
             </TextReveal>
           </>
         )}
       </h1>
 
-      <div className="mt-10 grid gap-8 md:grid-cols-12 md:items-end">
-        <p data-fade className="max-w-xl text-balance text-base leading-relaxed text-fg-muted opacity-0 md:col-span-6 md:text-lg">
-          {profile.positioning}
-        </p>
+      <div className="grid gap-8 md:grid-cols-12 md:items-end">
+        <div data-fade className="opacity-0 md:col-span-5">
+          <p className="eyebrow mb-3">( Who )</p>
+          <p className="max-w-md text-balance leading-relaxed text-fg-muted">
+            <span className="text-fg">{profile.name}</span> — {profile.positioning}
+          </p>
+        </div>
 
-        <div data-fade className="flex flex-wrap items-center gap-3 opacity-0 md:col-span-6 md:justify-end">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-fg-muted">
+        <div data-fade className="opacity-0 md:col-span-4">
+          <p className="eyebrow mb-3">( Next )</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Magnetic>
+              <a href={profile.calUrl} target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-3 text-sm font-medium text-bg transition-transform duration-300 hover:scale-[1.03]">
+                Book a call <span aria-hidden>↗</span>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm transition-colors duration-300 hover:border-fg">See the work</a>
+            </Magnetic>
+          </div>
+          <p className="mt-4 inline-flex items-center gap-2 font-mono text-xs text-fg-muted">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
             {profile.availability.label}
-          </span>
-          <Magnetic>
-            <a href={profile.calUrl} target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-3 text-sm font-medium text-bg transition-transform duration-300 hover:scale-[1.03]">
-              Book a call <span aria-hidden>↗</span>
-            </a>
-          </Magnetic>
-          <Magnetic>
-            <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm transition-colors duration-300 hover:border-fg">
-              See the work
-            </a>
-          </Magnetic>
+          </p>
+        </div>
+
+        <div data-fade className="flex items-end justify-between opacity-0 md:col-span-3 md:justify-end">
+          <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint md:hidden">
+            {profile.location}<br /><LocalTime />
+          </div>
+          <a href="#work" aria-label="Scroll to work" className="relative flex h-24 w-24 items-center justify-center md:h-28 md:w-28">
+            <svg data-badge viewBox="0 0 100 100" className="absolute inset-0 h-full w-full fill-fg-muted font-mono text-[9.5px] uppercase tracking-[0.2em]">
+              <defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
+              <text><textPath href="#circ">Scroll · Available for work · Scroll · Available for work ·</textPath></text>
+            </svg>
+            <span className="text-xl" aria-hidden>↓</span>
+          </a>
         </div>
       </div>
 
-      <div data-fade className="rule mt-10 flex flex-wrap items-center justify-between gap-3 pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint opacity-0">
+      <div data-fade className="rule mt-8 hidden items-center justify-between pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint opacity-0 md:flex">
         <span>{profile.location} · <LocalTime /></span>
-        <span className="hidden sm:inline">Scroll ↓</span>
-        <span>Remote · UK / IN / Worldwide</span>
+        <span>Remote · UK / EU / US / IN</span>
       </div>
     </section>
   );

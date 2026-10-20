@@ -13,7 +13,8 @@ const links = [
   { href: "#services", label: "Services", n: "03" },
   { href: "#experience", label: "Experience", n: "04" },
   { href: "#about", label: "About", n: "05" },
-  { href: "#contact", label: "Contact", n: "06" },
+  { href: "#faq", label: "FAQ", n: "06" },
+  { href: "#contact", label: "Contact", n: "07" },
 ];
 
 export default function Nav() {

@@ -8,6 +8,7 @@ import Proof from "@/components/v2/Proof";
 import Services from "@/components/v2/Services";
 import Experience from "@/components/v2/Experience";
 import About from "@/components/v2/About";
+import FAQ from "@/components/v2/FAQ";
 import Contact from "@/components/v2/Contact";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         <Services />
         <Experience />
         <About />
+        <FAQ />
         <Contact />
       </main>
     </>
