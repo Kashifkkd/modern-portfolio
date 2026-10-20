@@ -1,6 +1,5 @@
 "use client";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,7 +12,7 @@ import LocalTime from "./LocalTime";
 const SignalField = dynamic(() => import("./SignalField"), { ssr: false });
 
 /**
- * Editorial statement hero: a three-line headline with the portrait set inline as a pill,
+ * Editorial statement hero: a three-line headline,
  * a rotating scroll badge, and a three-column bottom bar (who / what next / where).
  */
 export default function Hero({ ready }: { ready: boolean }) {
@@ -24,7 +23,6 @@ export default function Hero({ ready }: { ready: boolean }) {
     gsap.fromTo(root.current.querySelectorAll("[data-fade]"),
       { autoAlpha: 0, y: 18 },
       { autoAlpha: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.08, delay: 1 });
-    gsap.fromTo("[data-pill]", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power4.inOut", delay: 0.9 });
     gsap.to("[data-badge]", { rotate: 360, duration: 14, ease: "none", repeat: -1 });
   }, { dependencies: [ready], scope: root });
 
@@ -42,13 +40,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         {ready && (
           <>
             <TextReveal as="span" className="block" immediate delay={0.2}>Software that</TextReveal>
-            <span className="flex flex-wrap items-center gap-x-[0.18em]">
-              <TextReveal as="span" className="block" immediate delay={0.3}>ships</TextReveal>
-              <span data-pill className="relative my-[0.08em] inline-block h-[0.72em] w-[1.6em] origin-left overflow-hidden rounded-full border border-line align-middle">
-                <Image src="/kashif_profile_img.jpeg" alt="" fill sizes="20vw" className="object-cover grayscale" priority />
-              </span>
-              <TextReveal as="span" className="block" immediate delay={0.4}>and</TextReveal>
-            </span>
+            <TextReveal as="span" className="block" immediate delay={0.3}>ships and</TextReveal>
             <TextReveal as="span" className="block" immediate delay={0.5}>
               <span className="serif-accent text-accent">holds up</span> in <span className="whitespace-nowrap">production<span className="text-accent">.</span></span>
             </TextReveal>
