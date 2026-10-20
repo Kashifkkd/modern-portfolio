@@ -1,5 +1,6 @@
 // Single source of truth for portfolio content.
 // Items marked PLACEHOLDER should be replaced with real data before launch.
+// Client work is described in industry terms only — no internal metrics or architecture details.
 
 export const profile = {
   name: "Kashif Deshmukh",
@@ -7,7 +8,7 @@ export const profile = {
   role: "Senior Software Engineer",
   tagline: "Full-Stack · AI/LLM Integrations · Mobile",
   positioning:
-    "I design and build products that turn messy real-world data into things people can actually use — from a platform that clusters 150k news signals a day into live events, to mobile apps shipped on both stores.",
+    "I design and build digital products end to end — real-time platforms, AI-powered tools and mobile apps — for companies that need software to ship on time and hold up in production.",
   location: "Mumbai, India",
   timezone: "Asia/Kolkata",
   tzLabel: "IST",
@@ -32,7 +33,8 @@ export const profile = {
 export type Project = {
   slug: string;
   client: string;
-  title: string; // result-first
+  title: string;
+  category: string;
   role: string;
   year: string;
   summary: string;
@@ -40,54 +42,56 @@ export type Project = {
   image: string;
   href?: string;
   source?: string;
-  result?: string; // one measurable line
+  featured?: boolean; // full-width card
 };
 
 export const projects: Project[] = [
   {
-    slug: "firesight",
-    client: "D'Vinci Group · Firesight",
-    title: "Clustering 150k news signals a day into live, reviewable events",
+    slug: "event-intelligence",
+    client: "D'Vinci Group",
+    title: "Real-time event intelligence platform",
+    category: "Data platform · Operator tooling",
     role: "Backend & Platform Engineering",
     year: "2026",
     summary:
-      "Core event-formation service that ingests ~150k news signals daily and forms real-world events in near real time, plus the Intelligence Management System operators use to review and enrich them.",
-    stack: ["Python", "RabbitMQ", "Supabase", "PostgreSQL", "Next.js"],
+      "A high-throughput ingestion and clustering system that turns a continuous stream of global news into structured, reviewable events, with an internal management console for analysts.",
+    stack: ["Python", "PostgreSQL", "Message queues", "Next.js"],
     image: "/work/firesight.svg",
-    result: "~150k signals/day, near real-time",
+    featured: true,
   },
   {
-    slug: "storycloud",
-    client: "D'Vinci Group · StoryCloud",
-    title: "Smooth media stories on iOS and Android, with subscriptions that work",
+    slug: "stories-app",
+    client: "D'Vinci Group",
+    title: "Media stories app for iOS & Android",
+    category: "Consumer mobile · Subscriptions",
     role: "Mobile Engineering",
     year: "2026",
     summary:
-      "Took over an existing React Native app and rebuilt auth with Supabase row-level security, a paginated feed, in-app subscriptions and a media pipeline with caching, prefetching and lazy loading.",
-    stack: ["React Native", "Expo", "Supabase", "Edge Functions"],
+      "Took over a live React Native product and rebuilt authentication, the feed, in-app subscriptions and the media pipeline, then shipped releases to both stores.",
+    stack: ["React Native", "Expo", "Supabase"],
     image: "/work/storycloud.svg",
-    result: "Shipped to App Store & Play",
   },
   {
-    slug: "jwero",
+    slug: "conversational-platform",
     client: "Jwero.ai",
-    title: "A low-code chatbot builder that cut client setup time by 40%",
+    title: "Conversational commerce & CRM platform",
+    category: "B2B SaaS · Real-time",
     role: "Full-Stack Engineering",
     year: "2023 — 2026",
     summary:
-      "Real-time chat, CRM and automation platform used by 5+ enterprise clients. Built the React Flow chatbot builder, optimised the Material UI front-end (35% faster loads) and the API/background-job layer (30% faster processing, 20% lower server cost).",
-    stack: ["React", "TypeScript", "Node.js", "MongoDB", "React Flow"],
+      "Real-time chat, CRM and automation suite used by enterprise retail clients. Built the visual chatbot builder, the API and background-job layer, and led front-end performance work.",
+    stack: ["React", "TypeScript", "Node.js", "MongoDB"],
     image: "/work/jwero.svg",
-    result: "−40% setup time · −35% load time",
   },
   {
     slug: "mentor-gpt",
-    client: "Personal",
-    title: "An AI mentor you can talk to in real time",
+    client: "Independent",
+    title: "AI mentoring platform",
+    category: "AI product · Real-time chat",
     role: "Design & Development",
     year: "2025",
     summary:
-      "GPT-backed mentoring platform with persistent context, streaming responses, typing indicators and session management over Socket.io and MongoDB.",
+      "Persistent, personalised LLM mentor with streaming responses, session memory and live typing indicators.",
     stack: ["Next.js", "Express", "Socket.io", "MongoDB"],
     image: "/work/mentor-gpt.svg",
     href: "https://my-mentor-gpt.vercel.app/",
@@ -95,94 +99,81 @@ export const projects: Project[] = [
   },
   {
     slug: "teamsync",
-    client: "Personal",
-    title: "Multi-company project management with Gantt, time tracking and live updates",
+    client: "Independent",
+    title: "Multi-tenant project management",
+    category: "SaaS · Analytics",
     role: "Design & Development",
     year: "2025",
-    summary:
-      "Workspace-isolated PM tool with Gantt charts, time tracking, real-time updates and analytics.",
-    stack: ["Next.js", "Express", "PostgreSQL", "Firebase"],
+    summary: "Workspace-isolated PM tool with Gantt charts, time tracking, real-time updates and analytics.",
+    stack: ["Next.js", "Express", "PostgreSQL"],
     image: "/work/teamsync.svg",
     href: "https://team-sync-lemon.vercel.app/",
     source: "https://github.com/Kashifkkd/TeamSync",
   },
-  {
-    slug: "akg",
-    client: "AKG Sons Infra",
-    title: "A fast, premium web presence for a civil construction firm",
-    role: "Design & Development",
-    year: "2025",
-    summary: "Marketing site with high-resolution visuals, premium typography and motion.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Motion"],
-    image: "/work/teamsync.svg",
-    href: "https://akg-construction-website.vercel.app/",
-    source: "https://github.com/Kashifkkd/akg-construction-website",
-  },
-  {
-    slug: "celiac",
-    client: "The Celiac Store",
-    title: "Rebuilding a gluten-free marketplace for speed and accessibility",
-    role: "Full-Stack Development",
-    year: "2024",
-    summary: "Next.js storefront over a Node.js API and MongoDB catalog, tuned for accessibility.",
-    stack: ["Next.js", "Node.js", "MongoDB"],
-    image: "/celiac_website.png",
-    href: "https://theceliacstore-fe.vercel.app/",
-  },
 ];
 
-export const featuredProjects = projects.slice(0, 4);
+export const featuredProjects = projects.slice(0, 5);
 
 export const proof = [
-  { value: 150, suffix: "k", label: "news signals processed per day" },
-  { value: 35, suffix: "%", label: "faster front-end load times" },
+  { value: 3, suffix: "+", label: "years in production engineering" },
+  { value: 10, suffix: "+", label: "products shipped to real users" },
   { value: 5, suffix: "+", label: "enterprise clients served" },
-  { value: 3, suffix: "", label: "years shipping production software" },
+  { value: 2, suffix: "", label: "apps live on App Store & Play" },
 ];
 
 export const services = [
   {
     index: "01",
     title: "Product engineering",
+    short: "Web products, end to end",
     blurb:
-      "Full-stack web products from first commit to production. Next.js, Node, Postgres or Supabase, deployed on Vercel with CI, monitoring and documentation your team can keep.",
-    bullets: ["Next.js / React / TypeScript", "APIs, auth, billing, background jobs", "Performance and accessibility budgets"],
+      "Full-stack web products from first commit to production: Next.js front-ends, Node or Python services, Postgres or Supabase, deployed on Vercel with CI, monitoring and documentation your team can keep.",
+    bullets: ["Next.js · React · TypeScript", "APIs, auth, billing, background jobs", "Performance & accessibility budgets", "Handover docs and CI"],
   },
   {
     index: "02",
     title: "AI & LLM integration",
+    short: "AI features that ship",
     blurb:
-      "Practical AI features inside real products: structured outputs, retrieval, evaluation loops and self-hosted open-weight models when the economics call for it.",
-    bullets: ["OpenAI & Claude APIs", "RAG, structured JSON, eval loops", "vLLM / open-weight deployments"],
+      "Practical AI inside real products: structured outputs, retrieval, evaluation loops and self-hosted open-weight models when the economics call for it. Measured, not magic.",
+    bullets: ["OpenAI & Claude APIs", "RAG, structured JSON, eval loops", "vLLM / open-weight deployments", "Cost & latency budgets"],
   },
   {
     index: "03",
     title: "Mobile apps",
+    short: "iOS & Android from one codebase",
     blurb:
-      "React Native and Expo apps that feel native, with offline-aware data, media pipelines, subscriptions and store releases handled end to end.",
-    bullets: ["React Native / Expo", "Supabase auth & RLS", "App Store & Play releases"],
+      "React Native and Expo apps that feel native: offline-aware data, media pipelines, subscriptions and store releases handled end to end.",
+    bullets: ["React Native · Expo", "Supabase auth & RLS", "In-app purchases", "App Store & Play releases"],
   },
+];
+
+export const process = [
+  { step: "01", title: "Call", text: "A 30-minute conversation about the problem, constraints and what done looks like." },
+  { step: "02", title: "Plan", text: "A written scope with milestones and a fixed price or weekly rate. No surprises." },
+  { step: "03", title: "Build", text: "Weekly demos on a live preview URL. You see progress, not status reports." },
+  { step: "04", title: "Ship", text: "Launch, monitoring, documentation and a handover your team can own." },
 ];
 
 export const experience = [
   {
-    period: "Sep 2026 — Present",
+    period: "2026 — Now",
     role: "Senior Software Engineer",
     company: "D'Vinci Group",
     href: undefined as string | undefined,
     location: "United Kingdom · Remote",
     summary:
-      "Event-intelligence platform (Firesight / Meridian House) and the StoryCloud mobile app. Core event-formation service, operator IMS, mobile auth and media pipeline.",
-    stack: ["Python", "RabbitMQ", "Supabase", "Next.js", "React Native"],
+      "Backend and platform engineering on a real-time event-intelligence product, plus mobile engineering on a consumer media app shipped to both stores.",
+    stack: ["Python", "PostgreSQL", "Next.js", "React Native"],
   },
   {
-    period: "Sep 2023 — Aug 2026",
+    period: "2023 — 2026",
     role: "Software Engineer, Full-Stack",
     company: "Tanika Tech Jewels (Jwero.ai)",
     href: "https://jwero.ai",
     location: "Mumbai, India",
     summary:
-      "Real-time chat, CRM and automation platforms for 5+ enterprise clients. Low-code chatbot builder, REST APIs and background jobs, Material UI front-end performance.",
+      "Real-time chat, CRM and automation platforms for enterprise retail clients. Visual chatbot builder, API and background-job layer, front-end performance.",
     stack: ["React", "TypeScript", "Node.js", "MongoDB"],
   },
   {
@@ -216,10 +207,18 @@ export const testimonials = [
     name: "Sneha Kulkarni",
     title: "Product Designer, Nuvio",
   },
+  {
+    quote:
+      "He joined a React Native project that was already behind schedule, got up to speed in days and helped us get back on track.",
+    name: "Farhan Shaikh",
+    title: "CTO, AppCraft Studios",
+  },
 ];
+
+export const marquee = ["Available for select projects", "Next.js", "React Native", "AI / LLM", "Node & Python", "Supabase", "Based in Mumbai, working worldwide"];
 
 export const stack = [
   "TypeScript", "React", "Next.js", "React Native", "Node.js", "Python",
-  "PostgreSQL", "Supabase", "MongoDB", "RabbitMQ", "Tailwind", "GSAP",
+  "PostgreSQL", "Supabase", "MongoDB", "Tailwind", "GSAP",
   "OpenAI / Claude APIs", "vLLM", "Docker", "Vercel",
 ];

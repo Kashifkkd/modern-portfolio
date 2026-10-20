@@ -1,94 +1,101 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { featuredProjects, projects } from "@/lib/site";
-import TextReveal from "./TextReveal";
+import SectionHeader from "./SectionHeader";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Selected work as an editorial list: index, result-first title, role, year.
- * On pointer devices a floating image follows the cursor and swaps per row (Snellenberg pattern).
- * On touch, each row shows its image inline.
+ * Editorial project grid. The first project runs full width; the rest sit in a two-column
+ * grid with offset rhythm. Each image parallaxes inside its frame as you scroll and the
+ * frame reveals with a clip-path wipe. Hover: image scales, meta slides in.
  */
 export default function Work() {
   const root = useRef<HTMLElement>(null);
-  const floater = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<number | null>(null);
 
   useGSAP(() => {
-    if (!root.current) return;
-    const rows = gsap.utils.toArray<HTMLElement>("[data-row]");
-    gsap.fromTo(rows, { autoAlpha: 0, y: 24 }, {
-      autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.1,
-      scrollTrigger: { trigger: root.current, start: "top 75%", once: true },
-    });
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    gsap.utils.toArray<HTMLElement>("[data-card]").forEach((card) => {
+      const frame = card.querySelector<HTMLElement>("[data-frame]");
+      const img = card.querySelector<HTMLElement>("[data-img]");
+      const meta = card.querySelectorAll("[data-meta]");
+      if (!frame || !img) return;
 
-    if (window.matchMedia("(pointer: coarse)").matches || !floater.current) return;
-    const xTo = gsap.quickTo(floater.current, "x", { duration: 0.6, ease: "power3" });
-    const yTo = gsap.quickTo(floater.current, "y", { duration: 0.6, ease: "power3" });
-    const move = (e: MouseEvent) => { xTo(e.clientX); yTo(e.clientY); };
-    window.addEventListener("mousemove", move, { passive: true });
-    return () => window.removeEventListener("mousemove", move);
+      gsap.fromTo(frame, { clipPath: "inset(0 0 100% 0)" }, {
+        clipPath: "inset(0 0 0% 0)", duration: reduce ? 0.01 : 1.2, ease: "power4.inOut",
+        scrollTrigger: { trigger: card, start: "top 80%", once: true },
+      });
+      gsap.fromTo(meta, { autoAlpha: 0, y: 14 }, {
+        autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.06, delay: 0.4,
+        scrollTrigger: { trigger: card, start: "top 80%", once: true },
+      });
+      if (!reduce) {
+        gsap.fromTo(img, { yPercent: -8 }, {
+          yPercent: 8, ease: "none",
+          scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true },
+        });
+      }
+    });
   }, { scope: root });
 
-  useGSAP(() => {
-    if (!floater.current) return;
-    gsap.to(floater.current, { scale: active === null ? 0 : 1, autoAlpha: active === null ? 0 : 1, duration: 0.5, ease: "power3.out" });
-  }, { dependencies: [active] });
-
   return (
-    <section ref={root} id="work" className="relative px-5 py-28 md:px-10 md:py-40">
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
-        <TextReveal as="h2" className="display text-5xl md:text-7xl">Selected<br />work<span className="text-accent">.</span></TextReveal>
-        <p className="eyebrow">{featuredProjects.length} of {projects.length} projects</p>
-      </div>
+    <section ref={root} id="work" className="px-5 py-24 md:px-10 md:py-40">
+      <SectionHeader
+        index="01"
+        label={`Selected work · ${featuredProjects.length} of ${projects.length}`}
+        title={<>Work that<br />shipped<span className="text-accent">.</span></>}
+        lede="A mix of client platforms and independent products. Client work is described in general terms; ask me for the detailed walkthrough on a call."
+      />
 
-      <ol className="rule">
-        {featuredProjects.map((p, i) => (
-          <li key={p.slug} data-row className="rule group opacity-0 first:border-t-0"
-              onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}>
-            <a href={p.href ?? "#contact"} target={p.href ? "_blank" : undefined} rel={p.href ? "noopener noreferrer" : undefined}
-               className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline md:py-10 transition-opacity duration-500 group-hover:opacity-100 [ol:hover_&:not(:hover)]:opacity-40">
-              <span className="font-mono text-xs text-fg-faint md:col-span-1">0{i + 1}</span>
-              <div className="md:col-span-7">
-                <h3 className="display text-3xl md:text-5xl transition-transform duration-500 ease-[cubic-bezier(.76,0,.24,1)] md:group-hover:translate-x-3">{p.title}</h3>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-fg-muted md:text-base">{p.summary}</p>
-                <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-lg border border-line md:hidden">
-                  <Image src={p.image} alt="" fill sizes="100vw" className="object-cover" />
+      <ul className="grid gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-28">
+        {featuredProjects.map((p, i) => {
+          const Tag = p.href ? "a" : "div";
+          const linkProps = p.href ? { href: p.href, target: "_blank", rel: "noopener noreferrer" } : {};
+          return (
+            <li key={p.slug} data-card className={`group ${p.featured ? "md:col-span-2" : ""} ${!p.featured && i % 2 === 0 ? "md:mt-24" : ""}`}>
+              <Tag {...linkProps} className="block">
+                <div data-frame className={`relative overflow-hidden rounded-xl border border-line bg-bg-elev ${p.featured ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
+                  <div data-img className="absolute inset-[-10%]">
+                    <Image src={p.image} alt={`${p.title} — preview`} fill sizes={p.featured ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+                           className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(.76,0,.24,1)] group-hover:scale-[1.04]" priority={i === 0} />
+                  </div>
+                  <span className="absolute left-4 top-4 rounded-full border border-fg/20 bg-bg/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-fg backdrop-blur">
+                    {p.category}
+                  </span>
+                  {p.href && (
+                    <span className="absolute bottom-4 right-4 flex h-12 w-12 translate-y-3 items-center justify-center rounded-full bg-fg text-bg opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden>↗</span>
+                  )}
                 </div>
-              </div>
-              <div className="flex flex-col gap-2 text-sm md:col-span-4 md:items-end md:text-right">
-                <span className="text-fg">{p.client}</span>
-                <span className="text-fg-muted">{p.role}</span>
-                <span className="font-mono text-xs text-fg-faint">{p.year}</span>
-                {p.result && <span className="mt-2 inline-block rounded-full border border-accent/40 px-3 py-1 font-mono text-[11px] text-accent">{p.result}</span>}
-                <span className="mt-2 flex flex-wrap gap-1.5 md:justify-end">
-                  {p.stack.map((s) => <span key={s} className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-fg-muted">{s}</span>)}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ol>
 
-      <div className="mt-10 flex justify-end">
-        <a href="#contact" className="group inline-flex items-center gap-3 text-sm">
-          Want the full list, including NDA work? Ask me
-          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <div className="mt-6 grid gap-3 md:grid-cols-12">
+                  <div className="md:col-span-8">
+                    <h3 data-meta className={`display ${p.featured ? "text-4xl md:text-6xl" : "text-3xl md:text-4xl"}`}>{p.title}</h3>
+                    <p data-meta className="mt-3 max-w-xl leading-relaxed text-fg-muted">{p.summary}</p>
+                  </div>
+                  <dl data-meta className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-faint md:col-span-4 md:text-right">
+                    <div className="rule flex justify-between gap-4 py-2 md:justify-end"><dt className="md:hidden">Client</dt><dd className="text-fg">{p.client}</dd></div>
+                    <div className="rule flex justify-between gap-4 py-2 md:justify-end"><dt className="md:hidden">Role</dt><dd>{p.role}</dd></div>
+                    <div className="rule flex justify-between gap-4 py-2 md:justify-end"><dt className="md:hidden">Year</dt><dd>{p.year}</dd></div>
+                    <div className="rule flex flex-wrap gap-1.5 py-2 md:justify-end">
+                      {p.stack.map((s) => <dd key={s} className="rounded-full border border-line px-2 py-0.5 normal-case tracking-normal text-fg-muted">{s}</dd>)}
+                    </div>
+                  </dl>
+                </div>
+              </Tag>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="rule mt-20 flex flex-wrap items-center justify-between gap-4 pt-6">
+        <p className="text-fg-muted">More work under NDA, including enterprise retail and fintech.</p>
+        <a href="#contact" className="group inline-flex items-center gap-3 rounded-full border border-line px-5 py-3 text-sm transition-colors hover:border-fg">
+          Ask for a walkthrough <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </a>
-      </div>
-
-      {/* floating image follows the cursor on desktop */}
-      <div ref={floater} aria-hidden
-           className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[260px] w-[380px] -translate-x-1/2 -translate-y-1/2 scale-0 overflow-hidden rounded-xl border border-line bg-bg-elev opacity-0 shadow-2xl md:block">
-        {featuredProjects.map((p, i) => (
-          <Image key={p.slug} src={p.image} alt="" fill sizes="380px"
-                 className={`object-cover transition-opacity duration-300 ${active === i ? "opacity-100" : "opacity-0"}`} />
-        ))}
       </div>
     </section>
   );

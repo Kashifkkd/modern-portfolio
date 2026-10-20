@@ -6,7 +6,7 @@ import * as THREE from "three";
 /**
  * The one hard idea on the site: a field of ~14k "signals" (points) that drift with noise,
  * light up and ripple around the cursor, and compress as you scroll — a nod to clustering
- * 150k news signals a day into events. Kept cheap: one draw call, DPR capped, pauses off-screen.
+ * turning a stream of raw signals into structured events. Kept cheap: one draw call, DPR capped, pauses off-screen.
  */
 
 const vertex = /* glsl */ `
