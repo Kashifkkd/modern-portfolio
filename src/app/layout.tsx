@@ -1,109 +1,74 @@
-import { Geist, Geist_Mono, Plus_Jakarta_Sans, Orbitron } from "next/font/google";
-import { Suspense } from "react";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import Navbar from "./Navbar";
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
+import SmoothScroll from "@/components/v2/SmoothScroll";
+import Nav from "@/components/v2/Nav";
+import { profile } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin"],
+  weight: "400",
+  style: ["italic", "normal"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const jakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["700", "800"],
-});
-
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
+const title = `${profile.name} — ${profile.role}`;
+const description =
+  "Senior full-stack engineer building web and mobile products with AI/LLM integrations. Next.js, React Native, Node, Python, Supabase. Available for select projects.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kashif-portfolio.vercel.app"),
-  title: "Kashif Deshmukh - Full Stack Developer Portfolio",
-  description: "Full Stack Developer specializing in React, Next.js, React Native, and Node.js. I create modern, scalable web and mobile applications that solve real-world problems.",
+  metadataBase: new URL(profile.siteUrl),
+  title,
+  description,
   keywords: [
-    "Kashif Deshmukh",
-    "Full Stack Developer",
-    "React Developer",
-    "Next.js Expert",
-    "React Native",
-    "Node.js",
-    "JavaScript",
-    "TypeScript",
-    "Web Developer",
-    "Mobile App Developer",
-    "UI/UX",
-    "Portfolio"
+    "Kashif Deshmukh", "Senior Software Engineer", "Full-Stack Developer", "Next.js",
+    "React Native", "AI integration", "LLM", "Freelance developer", "Mumbai",
   ],
-  authors: [{ name: "Kashif Deshmukh" }],
-  creator: "Kashif Deshmukh",
-  publisher: "Kashif Deshmukh",
+  authors: [{ name: profile.name }],
+  creator: profile.name,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://kashif-portfolio.vercel.app",
-    siteName: "Kashif Deshmukh Portfolio",
-    title: "Kashif Deshmukh - Full Stack Developer Portfolio",
-    description: "Full Stack Developer specializing in React, Next.js, React Native, and Node.js. I create modern, scalable web and mobile applications.",
-    images: [
-      {
-        url: "/kashif_profile_img.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "Kashif Deshmukh - Full Stack Developer",
-      },
-    ],
+    url: profile.siteUrl,
+    siteName: profile.name,
+    title,
+    description,
+    images: [{ url: "/kashif_profile_img.jpeg", width: 1200, height: 630, alt: profile.name }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Kashif Deshmukh - Full Stack Developer Portfolio",
-    description: "Full Stack Developer specializing in React, Next.js, React Native, and Node.js. Building modern web and mobile applications.",
-    images: ["/kashif_profile_img.jpeg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code", // Add your Google Search Console verification code
-  },
+  twitter: { card: "summary_large_image", title, description, images: ["/kashif_profile_img.jpeg"] },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    jobTitle: profile.role,
+    email: `mailto:${profile.email}`,
+    url: profile.siteUrl,
+    address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressCountry: "IN" },
+    sameAs: profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href),
+  };
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/kashif_profile_img.jpeg" />
-        <meta name="theme-color" content="#00C6FB" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0a0a0a" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`bg-background h-full w-full text-foreground antialiased transition-colors duration-500 ${geistSans.variable} ${geistMono.variable} ${jakartaSans.variable} ${orbitron.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <Suspense fallback={null}>
-            <Navbar />
-          </Suspense>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable}`}>
+        <a href="#main" className="skip-link">Skip to content</a>
+        <SmoothScroll>
+          <Nav />
           {children}
-          <Analytics />
-        </ThemeProvider>
+        </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,41 +1,30 @@
-"use client"
-
-import Hero from "./Hero";
-import JourneySection from "./JourneySection";
-import SkillsSection from "./SkillsSection";
-import ProjectsSection from "./ProjectsSection";
-import TestimonialsSection from "./TestimonialsSection";
-import ContactSection from "./ContactSection";
-import EntryAnimation from "./EntryAnimation";
-import { useState, useEffect } from "react";
+"use client";
+import { useCallback, useState } from "react";
+import Preloader from "@/components/v2/Preloader";
+import Hero from "@/components/v2/Hero";
+import Work from "@/components/v2/Work";
+import Proof from "@/components/v2/Proof";
+import Services from "@/components/v2/Services";
+import Experience from "@/components/v2/Experience";
+import About from "@/components/v2/About";
+import Contact from "@/components/v2/Contact";
 
 export default function Home() {
-  const [showAnimation, setShowAnimation] = useState(true);
-
-  useEffect(() => {
-    if (showAnimation) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, [showAnimation]);
+  const [ready, setReady] = useState(false);
+  const onDone = useCallback(() => setReady(true), []);
 
   return (
-    <main>
-      {showAnimation && <EntryAnimation onFinish={() => setShowAnimation(false)} />}
-      {!showAnimation && (
-        <>
-          <section><Hero /></section>
-          <section><JourneySection /></section>
-          <section><SkillsSection /></section>
-          <section><ProjectsSection /></section>
-          <section><TestimonialsSection /></section>
-          <section><ContactSection /></section>
-        </>
-      )}
-    </main>
+    <>
+      <Preloader onDone={onDone} />
+      <main id="main" className="mx-auto max-w-[1600px]">
+        <Hero ready={ready} />
+        <Work />
+        <Proof />
+        <Services />
+        <Experience />
+        <About />
+        <Contact />
+      </main>
+    </>
   );
 }
