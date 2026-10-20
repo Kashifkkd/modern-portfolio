@@ -30,37 +30,53 @@ export default function JourneySection() {
               content: (
                 <div>
                   <div className="font-semibold text-base md:text-lg text-neutral-800 dark:text-neutral-200">
-                    Gharda Institute of Technology <span className="text-xs text-neutral-500 ml-2">2018 - 2022</span>
+                    Gharda Institute of Technology, Mumbai University <span className="text-xs text-neutral-500 ml-2">Aug 2019 - Jul 2023</span>
                   </div>
                   <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    Graduated with a CGPA of 9.3, building a strong foundation in software engineering and problem-solving.
+                    Graduated with a CGPA of 8.57, building a strong foundation in data structures, algorithms, DBMS, operating systems and networking.
                   </div>
                 </div>
               ),
             },
             {
-              title: "Internship - Software Developer",
+              title: "Software Engineer, Full-Stack",
               content: (
                 <div>
                   <div className="font-semibold text-base md:text-lg text-neutral-800 dark:text-neutral-200">
-                    Tanika Tech <span className="text-xs text-neutral-500 ml-2">2021</span>
+                    Tanika Tech Jewels (Jwero.ai) <span className="text-xs text-neutral-500 ml-2">Sep 2023 - Aug 2026</span>
                   </div>
-                  <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    Worked on real-world web projects, learning modern frontend and backend technologies, collaborating with teams, and delivering client solutions.
-                  </div>
+                  <div className="text-xs text-neutral-500 mt-1">Mumbai, India</div>
+                  <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li>Built and maintained full-stack apps with React, TypeScript, Node.js and MongoDB, powering real-time chat, CRM and automation platforms for 5+ enterprise clients.</li>
+                    <li>Optimised responsive Material UI interfaces, cutting front-end load time by 35% and increasing user engagement by 25%.</li>
+                    <li>Developed scalable REST APIs and background jobs, improving data-processing speed by 30% and reducing server costs by 20%.</li>
+                    <li>Built a low-code chatbot builder with React Flow, Shadcn UI and Tailwind, reducing manual setup by 40%; shipped AI-powered chatbots that cut support response time by 20%.</li>
+                  </ul>
                 </div>
               ),
             },
             {
-              title: "Full Stack Developer",
+              title: "Senior Software Engineer",
               content: (
                 <div>
                   <div className="font-semibold text-base md:text-lg text-neutral-800 dark:text-neutral-200">
-                    Tanika Tech <span className="text-xs text-neutral-500 ml-2">2022 - Present</span>
+                    D&apos;Vinci Group <span className="text-xs text-neutral-500 ml-2">Sep 2026 - Present</span>
                   </div>
-                  <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    Developed and maintained scalable web and mobile applications using React, Next.js, Node.js, and more. Led feature development, mentored juniors, and contributed to successful client deliveries.
+                  <div className="text-xs text-neutral-500 mt-1">United Kingdom (Remote)</div>
+                  <div className="mt-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    Firesight / Meridian House: real-time event-intelligence platform
                   </div>
+                  <ul className="mt-1 list-disc pl-5 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li>Built the core event-formation service processing ~150k news signals/day in near real time, identifying and clustering real-world events as they unfold (Supabase/PostgreSQL, RabbitMQ, Python).</li>
+                    <li>Built the IMS (Intelligence Management System), the operator web app for managing analyst inputs and review workflows (Next.js, Supabase).</li>
+                  </ul>
+                  <div className="mt-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    StoryCloud: image, video and audio stories mobile app (iOS, Android)
+                  </div>
+                  <ul className="mt-1 list-disc pl-5 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li>Took over and enhanced the existing app: Supabase Auth with row-level security, Edge Functions, a paginated story feed and in-app subscriptions.</li>
+                    <li>Made high-quality media stories play smoothly with caching, prefetching and lazy loading, cutting load stalls across devices; supported App Store and Play releases.</li>
+                  </ul>
                 </div>
               ),
             },
