@@ -59,7 +59,7 @@ export default function Contact() {
                 <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span key={copied ? "c" : "i"} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }} className="block">
-                      {copied ? "Copied — talk soon" : "Copy email"}
+                      {copied ? "Copied - talk soon" : "Copy email"}
                     </motion.span>
                   </AnimatePresence>
                 </span>

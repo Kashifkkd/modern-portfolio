@@ -42,7 +42,7 @@ export default function Nav() {
         <nav aria-label="Primary"
              className={`mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10 transition-[padding] duration-500 ${scrolled ? "py-4" : "py-6"}`}>
           <Link href="#top" className="font-mono text-xs tracking-[0.14em] uppercase" onClick={() => setOpen(false)}>
-            {profile.name}<span className="hidden sm:inline text-fg-faint"> — {profile.location.split(",")[0]}</span>
+            {profile.name}<span className="hidden sm:inline text-fg-faint"> - {profile.location.split(",")[0]}</span>
           </Link>
 
           <ul className="hidden items-center gap-8 text-sm lg:flex">

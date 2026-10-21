@@ -46,6 +46,14 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
 
+  /* v3 theme (values live on .v3 in components/v3/v3.css) */
+  --color-paper: var(--paper);
+  --color-night: var(--night);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-brand: var(--brand);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

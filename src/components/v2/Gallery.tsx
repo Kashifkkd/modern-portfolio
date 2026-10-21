@@ -76,7 +76,7 @@ export default function Gallery() {
           {list.map((p, i) => (
             <figure key={`${p.slug}-${i}`} className="w-[78vw] shrink-0 will-change-transform md:w-[42vw] lg:w-[34vw]" aria-hidden={i >= featuredProjects.length}>
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-bg-elev">
-                <Image src={p.image} alt={i < featuredProjects.length ? `${p.title} — preview` : ""} fill sizes="(max-width: 768px) 78vw, 40vw" className="object-cover" draggable={false} />
+                <Image src={p.image} alt={i < featuredProjects.length ? `${p.title} - preview` : ""} fill sizes="(max-width: 768px) 78vw, 40vw" className="object-cover" draggable={false} />
               </div>
               <figcaption className="mt-4 flex items-baseline justify-between gap-4">
                 <div>

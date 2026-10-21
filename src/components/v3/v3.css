@@ -1,0 +1,41 @@
+/* ---------- v3 theme: warm paper, night footer, one orange accent ---------- */
+.v3 {
+  --paper: #f4f4f1;
+  --night: #1c1d20;
+  --ink: #1c1d20;
+  --ink-muted: #6e6f73;
+  --ink-faint: #d4d4d0;
+  --brand: #ff5b2e;
+  --ease: cubic-bezier(0.76, 0, 0.24, 1);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  color-scheme: light;
+}
+.v3 ::selection { background: var(--brand); color: #fff; }
+
+/* Dot that grows under a nav link on hover / when current */
+.v3-dot { position: relative; }
+.v3-dot::after {
+  content: ""; position: absolute; left: 50%; bottom: -10px;
+  width: 5px; height: 5px; border-radius: 999px; background: currentColor;
+  transform: translateX(-50%) scale(0); transition: transform 0.3s var(--ease);
+}
+.v3-dot:hover::after, .v3-dot[aria-current="true"]::after { transform: translateX(-50%) scale(1); }
+
+/* Pill / circle buttons fill from below on hover */
+.v3-fill { position: relative; overflow: hidden; isolation: isolate; }
+.v3-fill::before {
+  content: ""; position: absolute; left: -25%; top: 100%; width: 150%; height: 200%;
+  border-radius: 50%; background: var(--fill, var(--brand)); z-index: -1;
+  transition: top 0.6s var(--ease);
+}
+.v3-fill:hover::before { top: -50%; }
+
+@keyframes v3-spin { to { transform: rotate(360deg); } }
+.v3-spin { animation: v3-spin 9s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v3 *, .v3 *::before, .v3 *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

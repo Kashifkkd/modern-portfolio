@@ -9,7 +9,7 @@ import TextReveal from "./TextReveal";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * The archive (huyml.co pattern): every project as one dense block —
+ * The archive (huyml.co pattern): every project as one dense block -
  * name, date, outcomes instead of awards, team / role, industry, one honest sentence.
  * Facts a client can check, in a format that scans in seconds.
  */
@@ -28,13 +28,13 @@ export default function Archive() {
   return (
     <section ref={root} id="archive" className="px-5 py-24 md:px-10 md:py-40">
       <div className="rule flex items-center justify-between pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint">
-        <span>( 04 )</span><span>Archive · {projects.length} projects · 2023 — 2026</span>
+        <span>( 04 )</span><span>Archive · {projects.length} projects · 2023 - 2026</span>
       </div>
 
       <div className="mt-12 flex flex-wrap items-end justify-between gap-6 md:mt-16">
         <TextReveal as="h2" className="display text-[13vw] leading-[0.9] md:text-7xl lg:text-8xl">Everything<br />on record<span className="text-accent">.</span></TextReveal>
         <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm transition-colors hover:border-fg">
-          Résumé (PDF) <span className="transition-transform duration-300 group-hover:translate-x-1">↗</span>
+          Resume (PDF) <span className="transition-transform duration-300 group-hover:translate-x-1">↗</span>
         </a>
       </div>
 
@@ -44,7 +44,7 @@ export default function Archive() {
             <span data-line className="absolute left-0 top-0 h-px w-full origin-left bg-line" />
             <div className="grid gap-8 md:grid-cols-12">
               <div className="md:col-span-5">
-                <p data-in className="font-mono text-xs text-fg-faint">{String(i + 1).padStart(2, "0")} — {p.year}</p>
+                <p data-in className="font-mono text-xs text-fg-faint">{String(i + 1).padStart(2, "0")} - {p.year}</p>
                 <h3 data-in className="display mt-3 text-3xl md:text-5xl">{p.title}</h3>
                 <p data-in className="mt-4 max-w-md leading-relaxed text-fg-muted">{p.story}</p>
                 {(p.href || p.source) && (

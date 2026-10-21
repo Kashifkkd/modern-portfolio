@@ -52,7 +52,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         <div data-fade className="opacity-0 md:col-span-5">
           <p className="eyebrow mb-3">( Who )</p>
           <p className="max-w-md text-balance leading-relaxed text-fg-muted">
-            <span className="text-fg">{profile.name}</span> — {profile.positioning}
+            <span className="text-fg">{profile.name}</span> - {profile.positioning}
           </p>
         </div>
 

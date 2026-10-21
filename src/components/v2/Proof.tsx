@@ -63,7 +63,7 @@ export default function Proof() {
                 <span className="serif-accent text-accent">“</span>{t.quote}<span className="serif-accent text-accent">”</span>
               </blockquote>
               <figcaption className="mt-8 flex items-center justify-between font-mono text-xs text-fg-muted">
-                <span>{t.name}<span className="text-fg-faint"> — {t.title}</span></span>
+                <span>{t.name}<span className="text-fg-faint"> - {t.title}</span></span>
                 <span className="text-fg-faint">0{i + 1}</span>
               </figcaption>
             </figure>

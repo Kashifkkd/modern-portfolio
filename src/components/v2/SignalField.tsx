@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 /**
  * The one hard idea on the site: a field of ~14k "signals" (points) that drift with noise,
- * light up and ripple around the cursor, and compress as you scroll — a nod to clustering
+ * light up and ripple around the cursor, and compress as you scroll - a nod to clustering
  * turning a stream of raw signals into structured events. Kept cheap: one draw call, DPR capped, pauses off-screen.
  */
 
@@ -72,7 +72,9 @@ const fragment = /* glsl */ `
   }
 `;
 
-function Field({ reduce }: { reduce: boolean }) {
+type Look = { color: string; accent: string; additive: boolean; scrollLinked: boolean };
+
+function Field({ reduce, look }: { reduce: boolean; look: Look }) {
   const mat = useRef<THREE.ShaderMaterial>(null);
   const { viewport, gl } = useThree();
   const mouse = useRef(new THREE.Vector2(100, 100));
@@ -98,9 +100,15 @@ function Field({ reduce }: { reduce: boolean }) {
     uMouse: { value: new THREE.Vector2(100, 100) },
     uScroll: { value: 0 },
     uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.5) },
-    uColor: { value: new THREE.Color("#f5f5f3") },
-    uAccent: { value: new THREE.Color("#c8ff5a") },
-  }), [gl]);
+    uColor: { value: new THREE.Color(look.color) },
+    uAccent: { value: new THREE.Color(look.accent) },
+  }), [gl]); // colours are synced below
+
+  // Re-tint in place when the theme changes instead of rebuilding the material.
+  useEffect(() => {
+    uniforms.uColor.value.set(look.color);
+    uniforms.uAccent.value.set(look.accent);
+  }, [uniforms, look.color, look.accent]);
 
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
@@ -121,7 +129,7 @@ function Field({ reduce }: { reduce: boolean }) {
     mouse.current.lerp(target.current, 0.08);
     u.uMouse.value.copy(mouse.current);
     const h = window.innerHeight || 1;
-    u.uScroll.value = THREE.MathUtils.clamp(window.scrollY / h, 0, 1);
+    u.uScroll.value = look.scrollLinked ? THREE.MathUtils.clamp(window.scrollY / h, 0, 1) : 0;
   });
 
   return (
@@ -130,12 +138,23 @@ function Field({ reduce }: { reduce: boolean }) {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         <bufferAttribute attach="attributes-aSeed" args={[seeds, 1]} />
       </bufferGeometry>
-      <shaderMaterial ref={mat} vertexShader={vertex} fragmentShader={fragment} uniforms={uniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} />
+      <shaderMaterial ref={mat} vertexShader={vertex} fragmentShader={fragment} uniforms={uniforms} transparent depthWrite={false} blending={look.additive ? THREE.AdditiveBlending : THREE.NormalBlending} />
     </points>
   );
 }
 
-export default function SignalField() {
+/**
+ * Defaults reproduce the production (v2) field exactly. Options for other hosts:
+ * colours and blending for light backgrounds, and `scrollLinked={false}` where the field sits in a
+ * tall scroll scene and should stay uncompressed (as it looks at the top of the v2 page).
+ */
+export default function SignalField({
+  color = "#f5f5f3",
+  accent = "#c8ff5a",
+  additive = true,
+  vignette = "var(--bg)",
+  scrollLinked = true,
+}: { color?: string; accent?: string; additive?: boolean; vignette?: string; scrollLinked?: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   const [reduce, setReduce] = useState(false);
@@ -156,10 +175,10 @@ export default function SignalField() {
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >
-        <Field reduce={reduce} />
+        <Field reduce={reduce} look={{ color, accent, additive, scrollLinked }} />
       </Canvas>
       {/* vignette so type stays readable over the field */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--bg)_85%)]" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: `radial-gradient(ellipse at center, transparent 30%, ${vignette} 85%)` }} />
     </div>
   );
 }

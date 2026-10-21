@@ -1,6 +1,6 @@
 // Single source of truth for portfolio content.
 // Items marked PLACEHOLDER should be replaced with real data before launch.
-// Client work is described in industry terms only — no internal metrics or architecture details.
+// Client work is described in industry terms only - no internal metrics or architecture details.
 
 export const profile = {
   name: "Kashif Deshmukh",
@@ -8,7 +8,7 @@ export const profile = {
   role: "Senior Software Engineer",
   tagline: "Full-Stack · AI/LLM Integrations · Mobile",
   positioning:
-    "I design and build digital products end to end — real-time platforms, AI-powered tools and mobile apps — for companies that need software to ship on time and hold up in production.",
+    "I design and build digital products end to end - real-time platforms, AI-powered tools and mobile apps - for companies that need software to ship on time and hold up in production.",
   location: "Mumbai, India",
   timezone: "Asia/Kolkata",
   tzLabel: "IST",
@@ -45,7 +45,7 @@ export type Project = {
   featured?: boolean; // full-width card
   industry: string;
   team: string;      // employer, agency or "Independent"
-  outcome: string[]; // facts a client can check — the engineer's equivalent of an award list
+  outcome: string[]; // facts a client can check - the engineer's equivalent of an award list
   story: string;     // one honest sentence
 };
 
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     title: "Conversational commerce & CRM platform",
     category: "B2B SaaS · Real-time",
     role: "Full-Stack Engineering",
-    year: "2023 — 2026",
+    year: "2023 - 2026",
     summary:
       "Real-time chat, CRM and automation suite used by enterprise retail clients. Built the visual chatbot builder, the API and background-job layer, and led front-end performance work.",
     stack: ["React", "TypeScript", "Node.js", "MongoDB"],
@@ -188,7 +188,7 @@ export const process = [
 
 export const experience = [
   {
-    period: "2026 — Now",
+    period: "2026 - Now",
     role: "Senior Software Engineer",
     company: "D'Vinci Group",
     href: undefined as string | undefined,
@@ -198,7 +198,7 @@ export const experience = [
     stack: ["Python", "PostgreSQL", "Next.js", "React Native"],
   },
   {
-    period: "2023 — 2026",
+    period: "2023 - 2026",
     role: "Software Engineer, Full-Stack",
     company: "Tanika Tech Jewels (Jwero.ai)",
     href: "https://jwero.ai",
@@ -208,7 +208,7 @@ export const experience = [
     stack: ["React", "TypeScript", "Node.js", "MongoDB"],
   },
   {
-    period: "2019 — 2023",
+    period: "2019 - 2023",
     role: "B.E. Computer Engineering",
     company: "Gharda Institute of Technology, Mumbai University",
     href: undefined,
@@ -218,7 +218,7 @@ export const experience = [
   },
 ];
 
-// PLACEHOLDER — replace with real client quotes before launch.
+// PLACEHOLDER - replace with real client quotes before launch.
 export const testimonials = [
   {
     quote:
@@ -228,7 +228,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Good communicator, clean code, and he actually pushed back when our requirements didn't make sense — which I appreciated.",
+      "Good communicator, clean code, and he actually pushed back when our requirements didn't make sense - which I appreciated.",
     name: "Rohan Mehta",
     title: "Founder, StackSprint",
   },
@@ -257,7 +257,7 @@ export const facts = [
 
 export const faq = [
   { q: "What does a project cost?", a: "Fixed-scope builds typically start around a few thousand USD for a focused product or integration and scale with scope. Embedded work is billed weekly. You get a written number before any work starts, never an hourly surprise." },
-  { q: "How fast can you start, and how long do things take?", a: "I usually start within one to two weeks of a signed plan. A focused MVP or integration lands in 3–6 weeks; larger platforms run in milestones with a demo every week." },
+  { q: "How fast can you start, and how long do things take?", a: "I usually start within one to two weeks of a signed plan. A focused MVP or integration lands in 3-6 weeks; larger platforms run in milestones with a demo every week." },
   { q: "Do you work with agencies and existing teams?", a: "Yes. A good share of my work is white-label delivery for agencies or joining an in-house team mid-project. I fit into your tooling and ceremonies rather than imposing mine." },
   { q: "Can you handle both the app and the backend?", a: "That's the point. Next.js or React Native on the front, Node or Python with Postgres or Supabase behind it, deployed and monitored. One person accountable for the whole thing." },
   { q: "What about AI features?", a: "I ship them inside real products with evaluation loops and cost budgets, using OpenAI, Claude or self-hosted open-weight models depending on the economics. I'll tell you honestly when a feature doesn't need an LLM." },
@@ -268,7 +268,7 @@ export const footerLinks = [
   { label: "Start a project", items: [{ label: "Book a 30-min call", href: "https://cal.com/kashif-deshmukh" }] },
   { label: "Where the code lives", items: [{ label: "GitHub", href: "https://github.com/Kashifkkd" }] },
   { label: "Work & life updates", items: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/kashif-deshmukh-23797a173/" }] },
-  { label: "On paper", items: [{ label: "Résumé (PDF)", href: "/Kashif-Resume.pdf" }] },
+  { label: "On paper", items: [{ label: "Resume (PDF)", href: "/Kashif-Resume.pdf" }] },
 ];
 
 export const credits = [
