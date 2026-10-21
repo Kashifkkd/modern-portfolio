@@ -565,7 +565,7 @@ function SketchLayer() {
             <span style={{ position: "relative", flex: "none", width: ".8em", aspectRatio: "1/1", marginTop: "-.04em", border: dashed, boxSizing: "border-box", display: "block" }}>
               {/* pencil study of the same photo; the lens reveals the real one */}
               <img src="/portrait-sketch.png" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%", display: "block" }} />
-              <span data-fx="ink" data-i="2" style={{ ...noteStyle, position: "absolute", left: 0, top: "calc(100% + 12px)", width: "max-content", maxWidth: "min(26ch, 80vw)", lineHeight: 1.3, transform: "rotate(2.5deg)" }}>← my real face goes here.<br />people hire people.</span>
+              <span data-fx="ink" data-i="2" style={{ ...noteStyle, position: "absolute", left: 0, top: "calc(100% + 12px)", width: "max-content", maxWidth: "min(26ch, 80vw)", lineHeight: 1.3, transform: "rotate(2.5deg)" }}>← based in Mumbai, shipping worldwide.</span>
             </span>
             <span data-fx="neon" data-i="1" style={{ display: "block", borderBottom: "1px dashed var(--pencil-rule)", position: "relative" }}><Letters word="Deshmukh" /></span>
           </span>
