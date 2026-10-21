@@ -344,28 +344,6 @@ html.has-cursor .v4 input, html.has-cursor .v4 textarea { cursor: text !importan
 }
 @media (prefers-reduced-motion: no-preference) { .v4 .sig-ink { --ink: 0%; } }
 
-/* hero portrait: the cut-out photo sits on an animated background built in CSS */
-.v4 .pf { background: #1a0f0a; isolation: isolate; }
-.v4 .pf-aurora {
-  position: absolute; inset: -35%; z-index: 0;
-  background: conic-gradient(from 0deg at 50% 50%, #e8743b, #f6b37a, #b8481c, #2a140b, #e8743b);
-  filter: blur(10px) saturate(1.1); animation: pf-spin 12s linear infinite;
-}
-.v4 .pf-dots {
-  position: absolute; inset: 0; z-index: 1; opacity: 0.35; mix-blend-mode: soft-light;
-  background-image: radial-gradient(#fff 0.9px, transparent 1.3px); background-size: 7px 7px;
-  animation: pf-drift 8s linear infinite;
-}
-.v4 .pf-glow {
-  position: absolute; inset: 0; z-index: 2;
-  background: radial-gradient(circle at 50% 42%, rgba(255, 236, 214, 0.55), transparent 58%);
-  animation: pf-breathe 4.5s ease-in-out infinite;
-}
-.v4 .pf img { z-index: 3; }
-@keyframes pf-spin { to { transform: rotate(360deg); } }
-@keyframes pf-drift { to { background-position: 7px 14px; } }
-@keyframes pf-breathe { 0%, 100% { opacity: 0.55; transform: scale(0.96); } 50% { opacity: 1; transform: scale(1.06); } }
-
 /* scroll cue at the foot of the hero (both layers reserve room for it) */
 .v4 .hero-layer { padding-bottom: 76px !important; }
 .v4 .hero-cue {

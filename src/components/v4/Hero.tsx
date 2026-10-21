@@ -11,13 +11,23 @@ import { scrambleText } from "./scramble";
 
 const LENS = 170;
 
-/** The hero is 240vh of scroll; the cue skips straight to the first step. */
-function scrollToStep() {
-  const el = document.getElementById("process");
-  if (!el) return;
+/**
+ * The hero is 240vh of scroll. First press of the cue scrolls to the point where the build is
+ * finished (lens fully open, page still pinned); once you're there, the next press moves on to step 02.
+ */
+function scrollCue() {
+  const hero = document.getElementById("top");
+  const next = document.getElementById("process");
+  if (!hero || !next) return;
+  const finished = hero.offsetTop + hero.offsetHeight - innerHeight;
   const lenis = getLenis();
-  if (lenis) lenis.scrollTo(el, { duration: 1.6, offset: -64 });
-  else el.scrollIntoView({ behavior: "smooth" });
+  if (window.scrollY < finished - 8) {
+    if (lenis) lenis.scrollTo(finished, { duration: 1.6 });
+    else window.scrollTo({ top: finished, behavior: "smooth" });
+    return;
+  }
+  if (lenis) lenis.scrollTo(next, { duration: 1.4, offset: -64 });
+  else next.scrollIntoView({ behavior: "smooth" });
 }
 
 // The live site's WebGL signal field, at its production settings (density, drift, edge fade); loaded client-side only.
@@ -118,7 +128,6 @@ export default function Hero({ ready = true }: { ready?: boolean }) {
     const orbit = stage.querySelector("[data-ring-orbit]");
     const cross = stage.querySelector("[data-ring-cross]");
     const label = stage.querySelector<HTMLElement>("[data-ring-label]");
-    const cue = stage.querySelector<HTMLElement>("[data-cue]");
     const builds = stage.querySelectorAll<HTMLElement>("[data-build]");
     const buildBars = stage.querySelectorAll<HTMLElement>("[data-buildbar]");
     const clocks = stage.querySelectorAll<HTMLElement>("[data-clock]");
@@ -194,7 +203,6 @@ export default function Hero({ ready = true }: { ready?: boolean }) {
         ring.style.opacity = String(1 - Math.min(1, Math.max(0, (p - 0.6) / 0.3)));
         if (ringSvg) ringSvg.style.opacity = ring.style.opacity;
       }
-      if (cue) { const o = 1 - Math.min(1, Math.max(0, (p - 0.8) / 0.18)); cue.style.opacity = String(o); cue.style.pointerEvents = o < 0.1 ? "none" : ""; }
       const txt = s.moved ? "the finished version" : noHover ? "drag me around" : "move your cursor";
       if (label && txt !== lastLabel) { label.textContent = txt; lastLabel = txt; }
       const pct = Math.round(e * 100);
@@ -381,7 +389,7 @@ export default function Hero({ ready = true }: { ready?: boolean }) {
         <div data-ring="" aria-hidden style={{ position: "absolute", left: 0, top: 0, width: 0, height: 0, borderRadius: "50%", pointerEvents: "none", willChange: "transform,width,height" }}>
           <span data-ring-label="" className="f-hand" style={{ position: "absolute", left: "85%", top: "8%", transform: "translateY(-100%)", whiteSpace: "nowrap", fontSize: 15, lineHeight: 1.2, color: "#E8743B", background: "#13110F", padding: "4px 8px" }}>move your cursor</span>
         </div>
-        <a data-cue="" href="#process" className="hero-cue f-mono" onClick={e => { e.preventDefault(); scrollToStep(); }}>
+        <a data-cue="" href="#process" className="hero-cue f-mono" onClick={e => { e.preventDefault(); scrollCue(); }}>
           Scroll<ArrowDown className="hero-cue-arrow" />
         </a>
       </div>
@@ -612,12 +620,8 @@ function BuiltLayer() {
         <h1 style={{ ...nameStyle, margin: 0, color: "var(--built-fg)" }}>
           <span data-fx="neon" data-i="0" style={{ display: "block", borderBottom: "1px solid transparent" }}><Letters word="Kashif" /></span>
           <span style={{ display: "flex", alignItems: "center", gap: ".16em" }}>
-            {/* cut-out photo on a live background: rotating orange aurora, drifting dot grid, breathing glow */}
-            <span data-portrait="" className="pf" style={{ position: "relative", flex: "none", width: ".8em", aspectRatio: "1/1", marginTop: "-.04em", overflow: "hidden", display: "block" }}>
-              <span aria-hidden className="pf-aurora" />
-              <span aria-hidden className="pf-dots" />
-              <span aria-hidden className="pf-glow" />
-              <img src="/portrait-cutout.webp" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%", display: "block" }} />
+            <span data-portrait="" style={{ position: "relative", flex: "none", width: ".8em", aspectRatio: "1/1", marginTop: "-.04em", overflow: "hidden", background: "#3a3d42", display: "block" }}>
+              <img src="/portrait.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%", display: "block" }} />
             </span>
             <span data-fx="neon" data-i="1" style={{ display: "block", borderBottom: "1px solid transparent" }}><Letters word="Deshmukh" /></span>
           </span>
